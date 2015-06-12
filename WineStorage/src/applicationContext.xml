@@ -69,4 +69,10 @@
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
-	</bean></beans>
+	</bean>
+
+
+
+
+
+</beans>

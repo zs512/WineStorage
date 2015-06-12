@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5{
 	
-	public final static String get32(String s){
+	public static String get32(String s){
 		String resultString = "";
 		try{
 			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -26,7 +26,7 @@ public class MD5{
 		return resultString;
 	}
 	
-	public final static String get16(String s){
+	public static String get16(String s){
 		return get32(s).substring(8, 24);
 	}
 	public static void main(String[] args) {

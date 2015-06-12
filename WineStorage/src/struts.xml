@@ -6,12 +6,14 @@
     <constant name="struts.action.extension" value="action"/>
     <constant name="struts.serve.static.browserCache" value="false"/>
     <constant name="struts.configuration.xml.reload" value="true"/>
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
 
     <constant name="struts.devMode" value="true"/>
 
     <package name="login" extends="struts-default">
         <action name="login" class="com.action.LoginAction">
-            <result name="123">/index.html</result>
+            <result name="loginSuccess">/index.html</result>
+            <result name="loginFail">/login.html</result>
         </action>
     </package>
 
