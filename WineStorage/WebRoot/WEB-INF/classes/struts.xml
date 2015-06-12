@@ -2,16 +2,17 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 
-    <constant name="struts.i18n.encoding" value="utf-8"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
     <constant name="struts.action.extension" value="action"/>
     <constant name="struts.serve.static.browserCache" value="false"/>
     <constant name="struts.configuration.xml.reload" value="true"/>
 
     <constant name="struts.devMode" value="true"/>
 
-    <package name="login" namespace="userManage" extends="struts-default">
+    <package name="login" extends="struts-default">
         <action name="login" class="com.action.LoginAction">
-            <result name="success">/index.html</result>
+            <result name="123">/index.html</result>
         </action>
     </package>
-</struts>    
+
+</struts>
