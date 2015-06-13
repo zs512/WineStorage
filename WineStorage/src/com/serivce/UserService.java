@@ -20,7 +20,7 @@ public class UserService{
 
     private boolean checkLoginNameIsExistent(String loginName){
         if(loginName == null) return false;
-        List<ComUser> comUserList = comUserDAO.findByLoginName(user.getLoginName());
+        List<ComUser> comUserList = comUserDAO.findByLoginName(loginName);
         return (comUserList != null && comUserList.size() > 0);
 
     }
