@@ -19,6 +19,14 @@
     <!-- -->
     <constant name="struts.devMode" value="true"/>
 
+    <package name="def" extends="struts-default" abstract="true">
+        <default-action-ref name="error"></default-action-ref>
+        <action name="error">
+            <result>/404.jsp</result>
+        </action>
+    </package>
+
+
     <package name="login" extends="struts-default">
         <interceptors>
             <interceptor name="timer" class="com.opensymphony.xwork2.interceptor.TimerInterceptor"/>
