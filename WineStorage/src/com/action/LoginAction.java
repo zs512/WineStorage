@@ -14,9 +14,9 @@ import java.util.Map;
  */
 public class LoginAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
 
-    Map request;
-    Map session;
-    Map application;
+    Map<String, Object> request;
+    Map<String, Object> session;
+    Map<String, Object> application;
 
 
     private String name;
@@ -44,7 +44,7 @@ public class LoginAction extends ActionSupport implements RequestAware, SessionA
         user.setPassword(password);
         UserService userService= new UserService();
         if(userService.loginSuccess(user)){
-            session.put("ComUser", "123");
+            session.put("userId", user.getId());
             return "loginSuccess";
         }else{
             return "loginFail";
@@ -52,19 +52,17 @@ public class LoginAction extends ActionSupport implements RequestAware, SessionA
     }
 
     @Override
-    public void setApplication(Map application) {
+    public void setApplication(Map<String, Object> application) {
         this.application = application;
     }
 
     @Override
-    public void setRequest(Map request) {
+    public void setRequest(Map<String, Object> request) {
         this.request = request;
     }
 
     @Override
-    public void setSession(Map session) {
-        System.out.println("setSession");
-        System.out.println(session.toString());
+    public void setSession(Map<String, Object> session) {
         this.session = session;
     }
 }

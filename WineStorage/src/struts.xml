@@ -28,13 +28,8 @@
 
 
     <package name="login" extends="struts-default">
-        <interceptors>
-            <interceptor name="timer" class="com.opensymphony.xwork2.interceptor.TimerInterceptor"/>
-            <interceptor name="params" class="com.opensymphony.xwork2.interceptor.ParametersInterceptor"/>
-        </interceptors>
+        <default-interceptor-ref name="defaultStack"/>
         <action name="login" class="com.action.LoginAction">
-            <interceptor-ref name="timer"></interceptor-ref>
-            <interceptor-ref name="params"></interceptor-ref>
             <result name="loginSuccess">/index.jsp</result>
             <result name="loginFail">/login.jsp</result>
         </action>
