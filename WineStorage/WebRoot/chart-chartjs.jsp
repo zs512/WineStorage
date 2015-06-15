@@ -71,9 +71,8 @@
       <!-- task notificatoin start -->
       <li id="task_notificatoin_bar" class="dropdown">
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="icon-task-l"></i>
+                            <span class="icon-task-l"></span></a></i>
                               <span class="badge bg-important">5</span>
-        </a>
         <ul class="dropdown-menu extended tasks-bar">
           <div class="notify-arrow notify-arrow-blue"></div>
           <li>
@@ -403,7 +402,7 @@
         <div class="col-lg-12">
           <section class="panel">
             <header class="panel-heading">
-              <h3>General Chart</Char>
+              <Char><h3>General Chart</h3></Char>
             </header>
             <div class="panel-body">
               <div class="tab-pane" id="chartjs">
@@ -483,7 +482,6 @@
               </div>
             </div>
         </div>
-    </section>
     </div>
     <!-- chart morris start -->
     </div>

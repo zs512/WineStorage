@@ -19,10 +19,16 @@
     <!-- -->
     <constant name="struts.devMode" value="true"/>
 
-    <package name="def" extends="struts-default" abstract="true">
+    <package name="error" extends="struts-default" abstract="true">
         <default-action-ref name="error"></default-action-ref>
         <action name="error">
             <result>/404.jsp</result>
+        </action>
+    </package>
+
+    <package name="def" extends="struts-default">
+        <action name="itemManage">
+            <result>/itemManage.jsp</result>
         </action>
     </package>
 
