@@ -19,9 +19,9 @@
   <title>Creative - Bootstrap Admin Template</title>
 
   <!-- Bootstrap CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet"/>
   <!-- bootstrap theme -->
-  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <link href="css/bootstrap-theme.css" rel="stylesheet"/>
   <!--external css-->
   <!-- font icon -->
   <link href="css/elegant-icons-style.css" rel="stylesheet" />
@@ -32,15 +32,16 @@
   <!-- easy pie chart-->
   <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
   <!-- owl carousel -->
-  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
-  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css"/>
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet"/>
   <!-- Custom styles -->
-  <link rel="stylesheet" href="css/fullcalendar.css">
-  <link href="css/widgets.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/fullcalendar.css"/>
+  <link href="css/widgets.css" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
   <link href="css/style-responsive.css" rel="stylesheet" />
-  <link href="css/xcharts.min.css" rel=" stylesheet">
-  <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+  <link href="css/xcharts.min.css" rel=" stylesheet"/>
+  <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet"/>
+  <link href="css/font-chinese.css" rel="stylesheet"/>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
   <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
@@ -411,8 +412,20 @@
       </div>
 
       <div class="row">
+        <div class="col-lg-12 ">
+          <div class="btn-row pull-right">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary">添加</button>
+              <button type="button" class="btn btn-warning">修改</button>
+              <button type="button" class="btn btn-danger">删除</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div class="col-lg-9 col-md-12">
+      <div class="row">
+
+        <div class="col-lg-12 col-md-12">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2><i class="fa fa-flag-o red"></i><strong>信息</strong></h2>
@@ -457,6 +470,7 @@
           </div>
 
         </div>
+        <!--
         <div class="">
           <div class="btn-row">
             <div class="btn-group">
@@ -465,6 +479,7 @@
               <button type="button" class="btn btn-danger">删除</button>
             </div>
           </div>
+         -->
       </div><br><br>
 
 
