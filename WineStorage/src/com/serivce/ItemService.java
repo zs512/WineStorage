@@ -32,6 +32,10 @@ public class ItemService extends PublicService{
         comItem.setName(name);
         comItem.setVariety(variety);
         List<ComItem> comItemList = comItemDAO.findByExample(comItem);
+        if(comItemList != null)
+            System.out.println(comItemList.size());
+        else
+            System.out.println("null2");
         return (comItemList != null && comItemList.size() > 0);
     }
 
