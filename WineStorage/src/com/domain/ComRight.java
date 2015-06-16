@@ -12,94 +12,77 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
-
 /**
  * ComRight entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name="com_right"
-    ,schema="dbo"
-    ,catalog="WineStorage"
-)
+@Table(name = "com_right", schema = "dbo", catalog = "WineStorage")
+public class ComRight implements java.io.Serializable {
 
-public class ComRight  implements java.io.Serializable {
+	// Fields
 
+	private String id;
+	private String rightName;
+	private String describ;
+	private Set<ComUserRight> comUserRights = new HashSet<ComUserRight>(0);
 
-    // Fields    
+	// Constructors
 
-     private String id;
-     private String rightName;
-     private String describ;
-     private Set<ComUserRight> comUserRights = new HashSet<ComUserRight>(0);
-
-
-    // Constructors
-
-    /** default constructor */
-    public ComRight() {
-    }
+	/** default constructor */
+	public ComRight() {
+	}
 
 	/** minimal constructor */
-    public ComRight(String rightName) {
-        this.rightName = rightName;
-    }
-    
-    /** full constructor */
-    public ComRight(String rightName, String describ, Set<ComUserRight> comUserRights) {
-        this.rightName = rightName;
-        this.describ = describ;
-        this.comUserRights = comUserRights;
-    }
+	public ComRight(String rightName) {
+		this.rightName = rightName;
+	}
 
-   
-    // Property accessors
-    @GenericGenerator(name="generator", strategy="uuid.hex")@Id @GeneratedValue(generator="generator")
-    
-    @Column(name="id", unique=true, nullable=false, length=32)
+	/** full constructor */
+	public ComRight(String rightName, String describ,
+			Set<ComUserRight> comUserRights) {
+		this.rightName = rightName;
+		this.describ = describ;
+		this.comUserRights = comUserRights;
+	}
 
-    public String getId() {
-        return this.id;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    @Column(name="right_name", nullable=false, length=50)
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "uuid.hex")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "id", unique = true, nullable = false, length = 32)
+	public String getId() {
+		return this.id;
+	}
 
-    public String getRightName() {
-        return this.rightName;
-    }
-    
-    public void setRightName(String rightName) {
-        this.rightName = rightName;
-    }
-    
-    @Column(name="describ", length=500)
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getDescrib() {
-        return this.describ;
-    }
-    
-    public void setDescrib(String describ) {
-        this.describ = describ;
-    }
-@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="comUser")
+	@Column(name = "right_name", nullable = false, length = 50)
+	public String getRightName() {
+		return this.rightName;
+	}
 
-    public Set<ComUserRight> getComUserRights() {
-        return this.comUserRights;
-    }
-    
-    public void setComUserRights(Set<ComUserRight> comUserRights) {
-        this.comUserRights = comUserRights;
-    }
-   
+	public void setRightName(String rightName) {
+		this.rightName = rightName;
+	}
 
+	@Column(name = "describ", length = 500)
+	public String getDescrib() {
+		return this.describ;
+	}
 
+	public void setDescrib(String describ) {
+		this.describ = describ;
+	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
+	public Set<ComUserRight> getComUserRights() {
+		return this.comUserRights;
+	}
 
-
-
-
+	public void setComUserRights(Set<ComUserRight> comUserRights) {
+		this.comUserRights = comUserRights;
+	}
 
 }

@@ -415,7 +415,7 @@
         <div class="col-lg-12 ">
           <div class="btn-row pull-right">
             <div class="btn-group">
-              <button type="button" class="btn btn-primary">添加</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">添加</button>
               <button type="button" class="btn btn-warning">修改</button>
               <button type="button" class="btn btn-danger">删除</button>
             </div>
@@ -482,9 +482,52 @@
          -->
       </div><br><br>
 
+      <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title text-center" id="addItemTitle">添加商品</h4>
+            </div>
 
+            <form class="form-validate form-horizontal" id="addItem_form" method="post" action="<%=request.getContextPath()%>/addItem.action">
+              <div class="modal-body">
 
+                <div class="form-group">
+                  <label for="name" class="control-label col-lg-2">名称<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="name" name="name" type="text"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="variety" class="control-label col-lg-2">品种<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="variety" name="variety" type="text"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="standard" class="control-label col-lg-2">规格<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="standard" name="standard" type="text"/>
+                  </div>
+                </div>
+
+                <input type="hidden" id="storage" name="storage" value="0">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary">添加</button>
+              </div>
+            </form>
+
+            </div>
+          </div>
         </div>
+
       </section>
   <!--main content end-->
 </section>
@@ -575,7 +618,6 @@
       }
     });
   });
-
 
 
 </script>

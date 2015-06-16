@@ -10,8 +10,7 @@
 		  class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
 		<property name="url"
-				  value="jdbc:sqlserver://192.168.2.100:1433;databaseName=WineStorage">
-	<!--		value="jdbc:sqlserver://172.100.100.246:1433;databaseName=WineStorage">-->
+			value="jdbc:sqlserver://172.100.100.246:1433;databaseName=WineStorage">
 		</property>
 		<property name="username" value="sa"/>
 		<property name="password" value="admin_312"/>
