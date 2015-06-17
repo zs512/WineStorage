@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -114,6 +116,7 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByAgent")
+	@JsonIgnore
 	public Set<ComInStorage> getComInStoragesForAgent() {
 		return this.comInStoragesForAgent;
 	}
@@ -123,6 +126,7 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
+	@JsonIgnore
 	public Set<ComUserRight> getComUserRights() {
 		return this.comUserRights;
 	}
@@ -132,6 +136,7 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByApproval")
+	@JsonIgnore
 	public Set<ComInStorage> getComInStoragesForApproval() {
 		return this.comInStoragesForApproval;
 	}
@@ -142,6 +147,7 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByKeyboarder")
+	@JsonIgnore
 	public Set<ComInStorage> getComInStoragesForKeyboarder() {
 		return this.comInStoragesForKeyboarder;
 	}
@@ -152,6 +158,7 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByKeyboarder")
+	@JsonIgnore
 	public Set<ComOutStorage> getComOutStoragesForKeyboarder() {
 		return this.comOutStoragesForKeyboarder;
 	}
@@ -162,6 +169,7 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByApproval")
+	@JsonIgnore
 	public Set<ComOutStorage> getComOutStoragesForApproval() {
 		return this.comOutStoragesForApproval;
 	}
@@ -172,6 +180,7 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByAgent")
+	@JsonIgnore
 	public Set<ComOutStorage> getComOutStoragesForAgent() {
 		return this.comOutStoragesForAgent;
 	}

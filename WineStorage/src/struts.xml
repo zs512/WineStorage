@@ -43,9 +43,17 @@
 
     <package name="addItem" extends="struts-default">
         <default-interceptor-ref name="defaultStack"/>
-        <action name="addItem" class="com.action.AddItem">
-            <result name="success">/login.jsp</result>
-            <result name="fail">/index.jsp</result>
+        <action name="addItem" class="com.action.AddItemAction">
+            <result name="success">/itemManage.jsp</result>
+            <result name="fail">/itemManage.jsp</result>
+        </action>
+    </package>
+
+    <package name="getAllItem" extends="json-default">
+        <action name="getAllItem" class="com.action.GetAllItemAction">
+            <result name="success" type="json">
+                <param name="root">result</param>
+            </result>
         </action>
     </package>
 

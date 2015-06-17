@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by ruanqx on 2015/6/16.
  */
-public class AddItem extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
+public class AddItemAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
 
     Map<String, Object> request;
     Map<String, Object> session;
@@ -79,7 +79,7 @@ public class AddItem extends ActionSupport implements RequestAware, SessionAware
         item.setName(name);
         item.setVariety(variety);
         item.setStandard(standard);
-        item.setStorage(new Integer(storage));
+        item.setStorage(0);
         ItemService itemService = new ItemService();
         if(itemService.addItem(item)){
             System.out.println("success");

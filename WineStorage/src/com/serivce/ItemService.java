@@ -5,7 +5,6 @@ import com.domain.ComItem;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -31,11 +30,8 @@ public class ItemService extends PublicService{
         ComItem comItem = new ComItem();
         comItem.setName(name);
         comItem.setVariety(variety);
+        comItem.setStandard(standard);
         List<ComItem> comItemList = comItemDAO.findByExample(comItem);
-        if(comItemList != null)
-            System.out.println(comItemList.size());
-        else
-            System.out.println("null2");
         return (comItemList != null && comItemList.size() > 0);
     }
 
@@ -52,6 +48,9 @@ public class ItemService extends PublicService{
         }else{
             return false;
         }
-
+    }
+    public List<ComItem> getAllItem(){
+        List<ComItem> comItemList = comItemDAO.findAll();
+        return comItemList;
     }
 }

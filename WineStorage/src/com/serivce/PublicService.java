@@ -5,7 +5,7 @@ package com.serivce;
  */
 public class PublicService {
     protected boolean checkStringSizeIsOk(String str, int low, int up){
-        return (str.length() >= low && str.length() <= up);
+        return (str != null && str.length() >= low && str.length() <= up);
     }
 
 }

@@ -10,8 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 /**
  * ComItem entity. @author MyEclipse Persistence Tools
  */
@@ -26,7 +27,9 @@ public class ComItem implements java.io.Serializable {
 	private String variety;
 	private String standard;
 	private Integer storage;
+	@JsonIgnore
 	private Set<ComOutStorage> comOutStorages = new HashSet<ComOutStorage>(0);
+	@JsonIgnore
 	private Set<ComInStorage> comInStorages = new HashSet<ComInStorage>(0);
 
 	// Constructors
@@ -105,6 +108,7 @@ public class ComItem implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comItem")
+	@JsonIgnore
 	public Set<ComOutStorage> getComOutStorages() {
 		return this.comOutStorages;
 	}
@@ -114,6 +118,7 @@ public class ComItem implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comItem")
+	@JsonIgnore
 	public Set<ComInStorage> getComInStorages() {
 		return this.comInStorages;
 	}
