@@ -51,6 +51,9 @@
 </head>
 
 <body>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+</script>
 <!-- container section start -->
 <section id="container" class="">
 
@@ -81,10 +84,11 @@
       <ul class="nav pull-right top-menu">
 
         <!-- task notificatoin start -->
+        <!--
         <li id="task_notificatoin_bar" class="dropdown">
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="icon-task-l"></i>
-                              <span class="badge bg-important">5</span>
+            <span class="icon-task-l"></span>
+            <span class="badge bg-important">5</span>
           </a>
           <ul class="dropdown-menu extended tasks-bar">
             <div class="notify-arrow notify-arrow-blue"></div>
@@ -164,8 +168,10 @@
             </li>
           </ul>
         </li>
+        -->
         <!-- task notificatoin end -->
         <!-- inbox notificatoin start-->
+        <!--
         <li id="mail_notificatoin_bar" class="dropdown">
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <i class="icon-envelope-l"></i>
@@ -229,8 +235,10 @@
             </li>
           </ul>
         </li>
+        -->
         <!-- inbox notificatoin end -->
         <!-- alert notification start-->
+        <!--
         <li id="alert_notificatoin_bar" class="dropdown">
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
@@ -275,6 +283,7 @@
             </li>
           </ul>
         </li>
+        -->
         <!-- alert notification end-->
         <!-- user login dropdown start-->
         <li class="dropdown">
@@ -290,6 +299,7 @@
             <li class="eborder-top">
               <a href="#"><i class="icon_profile"></i> My Profile</a>
             </li>
+            <!--
             <li>
               <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
             </li>
@@ -299,15 +309,18 @@
             <li>
               <a href="#"><i class="icon_chat_alt"></i> Chats</a>
             </li>
+            -->
             <li>
               <a href="login.jsp"><i class="icon_key_alt"></i> Log Out</a>
             </li>
+            <!--
             <li>
               <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
             </li>
             <li>
               <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
             </li>
+            -->
           </ul>
         </li>
         <!-- user login dropdown end -->
@@ -399,6 +412,7 @@
 
   <!--main content start-->
   <section id="main-content">
+
     <section class="wrapper">
 
       <div class="row">
@@ -411,17 +425,7 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-lg-12 ">
-          <div class="btn-row pull-right">
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">添加</button>
-              <button type="button" class="btn btn-warning">修改</button>
-              <button type="button" class="btn btn-danger">删除</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       <div class="row">
 
@@ -430,20 +434,25 @@
             <div class="panel-heading">
               <h2><i class="fa fa-flag-o red"></i><strong>信息</strong></h2>
               <div class="panel-actions">
-                <a href="index.jsp#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-                <a href="index.jsp#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-                <a href="index.jsp#" class="btn-close"><i class="fa fa-times"></i></a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success">刷新</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">添加</button>
+                  <button type="button" class="btn btn-warning">修改</button>
+                  <button type="button" id="test" class="btn btn-danger">删除</button>
+                </div>
               </div>
             </div>
             <div class="panel-body">
-              <table class="table bootstrap-datatable countries">
+              <table class="table bootstrap-datatable">
                 <thead>
                 <tr>
                   <th></th>
+                  <th class="hidden">id</th>
                   <th>名称</th>
                   <th>品种</th>
                   <th>规格</th>
                   <th>库存</th>
+                  <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -452,14 +461,12 @@
                   <td>Germany</td>
                   <td>2563</td>
                   <td>1025</td>
+                  <td>123</td>
                   <td>
-                    <div class="progress thin">
-                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" style="width: 73%">
-                      </div>
-                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100" style="width: 27%">
-                      </div>
-                    </div>
-                    <span class="sr-only">73%</span>
+                   <div class="btn-group">
+                     <a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a>
+                     <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                   </div>
                   </td>
                 </tr>
 
@@ -524,15 +531,15 @@
               </div>
             </form>
 
-            </div>
           </div>
         </div>
+      </div>
 
-      </section>
-  <!--main content end-->
+    </section>
+    <!--main content end-->
+  </section>
+  <!-- container section start -->
 </section>
-<!-- container section start -->
-
 <!-- javascripts -->
 <script src="js/jquery.js"></script>
 <script src="js/jquery-ui-1.10.4.min.js"></script>
@@ -573,8 +580,7 @@
 <script src="js/sparklines.js"></script>
 <script src="js/charts.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
-<script>
-
+<script type="text/javascript">
   //knob
   $(function() {
     $(".knob").knob({
@@ -583,7 +589,6 @@
       }
     })
   });
-
   //carousel
   $(document).ready(function() {
     $("#owl-slider").owlCarousel({
@@ -591,16 +596,13 @@
       slideSpeed : 300,
       paginationSpeed : 400,
       singleItem : true
-
     });
+    alert("abc");
   });
-
   //custom select box
-
   $(function(){
     $('select.styled').customSelect();
   });
-
   /* ---------- Map ---------- */
   $(function(){
     $('#map').vectorMap({
@@ -618,7 +620,17 @@
       }
     });
   });
-
+$("#test").click(function(){
+  $.getJSON("<%=request.getContextPath()%>/getAllItem.action",
+          function(data){
+            alert(data);
+            $(data).each(function(){
+              alert("hh");
+              alert(this.id);
+            });
+          }
+  );
+});
 
 </script>
 

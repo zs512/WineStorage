@@ -67,21 +67,21 @@ public class GetAllItemAction extends ActionSupport implements RequestAware, Ses
 
     private String itemListToJson(List<ComItem> items){
         String json;
-        json = "{\"itemList\":[";
+        json = "[";
         if(items == null) return null;
         Iterator<ComItem> itemIterator = items.iterator();
         while (itemIterator.hasNext()){
             ComItem item = (ComItem)itemIterator.next();
-            json += "{\"id:\"" + item.getId() + "\",\"" +
-                    "name\":" + item.getName() + "\",\"" +
-                    "variety\":" + item.getVariety() + "\",\"" +
-                    "standart\":" + item.getStandard() + "\",\"" +
-                    "storage\":" + item.getStorage().toString() + "\"},";
+            json += "{\"id\":\"" + item.getId() + "\",\"" +
+                    "name\":\"" + item.getName() + "\",\"" +
+                    "variety\":\"" + item.getVariety() + "\",\"" +
+                    "standard\":\"" + item.getStandard() + "\",\"" +
+                    "storage\":\"" + item.getStorage().toString() + "\"},";
         }
         if(",".equals(json.substring(json.length() - 1))){
             json = json.substring(0, json.length() - 1);
         }
-        json += "]}";
+        json += "]";
         return json;
     }
 }
