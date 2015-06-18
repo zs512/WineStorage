@@ -53,4 +53,7 @@ public class ItemService extends PublicService{
         List<ComItem> comItemList = comItemDAO.findAll();
         return comItemList;
     }
+    public boolean delItem(String itemId){
+        return false;
+    }
 }

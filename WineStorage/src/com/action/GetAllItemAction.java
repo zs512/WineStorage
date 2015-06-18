@@ -61,7 +61,6 @@ public class GetAllItemAction extends ActionSupport implements RequestAware, Ses
         ItemService itemService = new ItemService();
         this.comItemList = itemService.getAllItem();
         this.setResult(itemListToJson(this.comItemList));
-        System.out.println(result);
         return SUCCESS;
     }
 

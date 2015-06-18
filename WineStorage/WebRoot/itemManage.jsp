@@ -435,10 +435,9 @@
               <h2><i class="fa fa-flag-o red"></i><strong>信息</strong></h2>
               <div class="panel-actions">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-success">刷新</button>
+                  <button type="button" id="refreshItem" class="btn btn-success">刷新</button>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">添加</button>
-                  <button type="button" class="btn btn-warning">修改</button>
-                  <button type="button" id="test" class="btn btn-danger">删除</button>
+                  <button type="button" class="btn btn-danger">删除</button>
                 </div>
               </div>
             </div>
@@ -446,8 +445,7 @@
               <table class="table bootstrap-datatable">
                 <thead>
                 <tr>
-                  <th></th>
-                  <th class="hidden">id</th>
+                  <th>选择</th>
                   <th>名称</th>
                   <th>品种</th>
                   <th>规格</th>
@@ -455,21 +453,10 @@
                   <th>操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                  <td><img src="img/Germany.png" style="height:18px; margin-top:-2px;"></td>
-                  <td>Germany</td>
-                  <td>2563</td>
-                  <td>1025</td>
-                  <td>123</td>
-                  <td>
-                   <div class="btn-group">
-                     <a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a>
-                     <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                   </div>
-                  </td>
-                </tr>
-
+                <tbody id="itemBody">
+                  <!--
+                <tr><td>check</td><td class="hidden">402882e54dfc803a014dfc80843b0000</td><td>名称1</td><td>品种1</td><td>规格1</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr><tr><td>check</td><td class="hidden">402882e54dfc8cef014dfc8d43060000</td><td>名称1</td><td>品种1</td><td>规格2</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr><tr><td>check</td><td class="hidden">402882e54dff50ba014dff5123c20000</td><td>名称1</td><td>品种2</td><td>规格1</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr><tr><td>check</td><td class="hidden">402882e54dff5402014dff544c990000</td><td>名称2</td><td>品种1</td><td>规格1</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr>
+                -->
                 </tbody>
               </table>
             </div>
@@ -597,7 +584,6 @@
       paginationSpeed : 400,
       singleItem : true
     });
-    alert("abc");
   });
   //custom select box
   $(function(){
@@ -620,18 +606,43 @@
       }
     });
   });
-$("#test").click(function(){
+function refrashItem(){
   $.getJSON("<%=request.getContextPath()%>/getAllItem.action",
           function(data){
-            alert(data);
-            $(data).each(function(){
-              alert("hh");
-              alert(this.id);
-            });
+            var itemsArray = new Array();
+            var map = eval("(" + data + ")");
+            var i = 0;
+            for(var key in map){
+              itemsArray[i] = new Array();
+              var a = map[key];
+              var j = 0;
+              for(var k in a){
+                itemsArray[i][j] = a[k];
+                j = j + 1;
+              }
+              i = i + 1;
+            }
+            var itemHtml = '';
+            for(var m = 0; m < itemsArray.length; m++){
+              itemHtml += '<tr>';
+              itemHtml += '<td><input type="checkbox" name="itemId" value="' + itemsArray[m][0] + '"></td>';
+              itemHtml += '<td>' + itemsArray[m][1] + '</td>';
+              itemHtml += '<td>' + itemsArray[m][2] + '</td>';
+              itemHtml += '<td>' + itemsArray[m][3] + '</td>';
+              itemHtml += '<td>' + itemsArray[m][4] + '</td>';
+              itemHtml += '<td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a>';
+              itemHtml += '<a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr>';
+            }
+            document.getElementById("itemBody").innerHTML = itemHtml;
+
           }
   );
-});
+}
+  $("#refreshItem").click(function(){
+    refrashItem();
+  });
 
+  window.onload=refrashItem;
 </script>
 
 </body>
