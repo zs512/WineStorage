@@ -36,6 +36,7 @@ public class ComItemDAO {
 	public static final String VARIETY = "variety";
 	public static final String STANDARD = "standard";
 	public static final String STORAGE = "storage";
+	public static final String STATUS = "status";
 
 	private SessionFactory sessionFactory;
 
@@ -129,6 +130,10 @@ public class ComItemDAO {
 
 	public List<ComItem> findByStorage(Object storage) {
 		return findByProperty(STORAGE, storage);
+	}
+
+	public List<ComItem> findByStatus(Object status) {
+		return findByProperty(STATUS, status);
 	}
 
 	public List findAll() {

@@ -35,6 +35,7 @@ public class ComRightDAO {
 	// property constants
 	public static final String RIGHT_NAME = "rightName";
 	public static final String DESCRIB = "describ";
+	public static final String STATUS = "status";
 
 	private SessionFactory sessionFactory;
 
@@ -120,6 +121,10 @@ public class ComRightDAO {
 
 	public List<ComRight> findByDescrib(Object describ) {
 		return findByProperty(DESCRIB, describ);
+	}
+
+	public List<ComRight> findByStatus(Object status) {
+		return findByProperty(STATUS, status);
 	}
 
 	public List findAll() {

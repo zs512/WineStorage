@@ -10,9 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+
 /**
  * ComItem entity. @author MyEclipse Persistence Tools
  */
@@ -27,9 +26,8 @@ public class ComItem implements java.io.Serializable {
 	private String variety;
 	private String standard;
 	private Integer storage;
-	@JsonIgnore
+	private Integer status;
 	private Set<ComOutStorage> comOutStorages = new HashSet<ComOutStorage>(0);
-	@JsonIgnore
 	private Set<ComInStorage> comInStorages = new HashSet<ComInStorage>(0);
 
 	// Constructors
@@ -48,12 +46,13 @@ public class ComItem implements java.io.Serializable {
 
 	/** full constructor */
 	public ComItem(String name, String variety, String standard,
-			Integer storage, Set<ComOutStorage> comOutStorages,
+			Integer storage, Integer status, Set<ComOutStorage> comOutStorages,
 			Set<ComInStorage> comInStorages) {
 		this.name = name;
 		this.variety = variety;
 		this.standard = standard;
 		this.storage = storage;
+		this.status = status;
 		this.comOutStorages = comOutStorages;
 		this.comInStorages = comInStorages;
 	}
@@ -107,8 +106,16 @@ public class ComItem implements java.io.Serializable {
 		this.storage = storage;
 	}
 
+	@Column(name = "status")
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comItem")
-	@JsonIgnore
 	public Set<ComOutStorage> getComOutStorages() {
 		return this.comOutStorages;
 	}
@@ -118,7 +125,6 @@ public class ComItem implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comItem")
-	@JsonIgnore
 	public Set<ComInStorage> getComInStorages() {
 		return this.comInStorages;
 	}

@@ -10,18 +10,27 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.util.Map;
 
 /**
- * Created by ruanqx on 2015/6/16.
+ * Created by ruanqx on 2015/6/18.
  */
-public class AddItemAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
+public class EditItemAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
 
     Map<String, Object> request;
     Map<String, Object> session;
     Map<String, Object> application;
 
+    private String id;
     private String name;
     private String variety;
     private String standard;
     private String storage;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -72,16 +81,15 @@ public class AddItemAction extends ActionSupport implements RequestAware, Sessio
 
     @Override
     public String execute() throws Exception {
-        ComItem item = new ComItem();
-        item.setName(name);
-        item.setVariety(variety);
-        item.setStandard(standard);
-        item.setStorage(0);
+        ComItem comItem = new ComItem();
+        comItem.setId(getId());
+        comItem.setName(getName());
+        comItem.setVariety(getVariety());
+        comItem.setStandard(getStandard());
+        comItem.setStorage(Integer.valueOf(getStorage()));
+        comItem.setStatus(0);
         ItemService itemService = new ItemService();
-        if(itemService.addItem(item)){
-            return "success";
-        }else{
-            return "fail";
-        }
+        itemService.editItem(comItem);
+        return SUCCESS;
     }
 }

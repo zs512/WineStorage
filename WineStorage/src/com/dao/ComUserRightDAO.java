@@ -34,6 +34,7 @@ public class ComUserRightDAO {
 	// property constants
 	public static final String USER_ID = "userId";
 	public static final String RIGHT_ID = "rightId";
+	public static final String STATUS = "status";
 
 	private SessionFactory sessionFactory;
 
@@ -119,6 +120,10 @@ public class ComUserRightDAO {
 
 	public List<ComUserRight> findByRightId(Object rightId) {
 		return findByProperty(RIGHT_ID, rightId);
+	}
+
+	public List<ComUserRight> findByStatus(Object status) {
+		return findByProperty(STATUS, status);
 	}
 
 	public List findAll() {

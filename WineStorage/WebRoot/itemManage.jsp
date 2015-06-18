@@ -442,23 +442,25 @@
               </div>
             </div>
             <div class="panel-body">
-              <table class="table bootstrap-datatable">
-                <thead>
-                <tr>
-                  <th>选择</th>
-                  <th>名称</th>
-                  <th>品种</th>
-                  <th>规格</th>
-                  <th>库存</th>
-                  <th>操作</th>
-                </tr>
-                </thead>
-                <tbody id="itemBody">
-                  <!--
-                <tr><td>check</td><td class="hidden">402882e54dfc803a014dfc80843b0000</td><td>名称1</td><td>品种1</td><td>规格1</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr><tr><td>check</td><td class="hidden">402882e54dfc8cef014dfc8d43060000</td><td>名称1</td><td>品种1</td><td>规格2</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr><tr><td>check</td><td class="hidden">402882e54dff50ba014dff5123c20000</td><td>名称1</td><td>品种2</td><td>规格1</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr><tr><td>check</td><td class="hidden">402882e54dff5402014dff544c990000</td><td>名称2</td><td>品种1</td><td>规格1</td><td>0</td><td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a><a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr>
-                -->
-                </tbody>
-              </table>
+              <form method="post" action="" name="itemListForm">
+                <input type="hidden" name="selectedIds">
+                <table class="table bootstrap-datatable">
+                  <thead>
+                  <tr>
+                    <th>选择</th>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>品种</th>
+                    <th>规格</th>
+                    <th>库存</th>
+                    <th>操作</th>
+                  </tr>
+                  </thead>
+                  <tbody id="itemBody">
+
+                  </tbody>
+                </table>
+              </form>
             </div>
 
           </div>
@@ -490,27 +492,27 @@
               <div class="modal-body">
 
                 <div class="form-group">
-                  <label for="name" class="control-label col-lg-2">名称<span class="required">*</span></label>
+                  <label for="addname" class="control-label col-lg-2">名称<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="name" name="name" type="text"/>
+                    <input class="form-control" id="addname" name="name" type="text"/>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="variety" class="control-label col-lg-2">品种<span class="required">*</span></label>
+                  <label for="addvariety" class="control-label col-lg-2">品种<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="variety" name="variety" type="text"/>
+                    <input class="form-control" id="addvariety" name="variety" type="text"/>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="standard" class="control-label col-lg-2">规格<span class="required">*</span></label>
+                  <label for="addstandard" class="control-label col-lg-2">规格<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="standard" name="standard" type="text"/>
+                    <input class="form-control" id="addstandard" name="standard" type="text"/>
                   </div>
                 </div>
 
-                <input type="hidden" id="storage" name="storage" value="0">
+                <input type="hidden" id="addstorage" name="storage" value="0">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
@@ -522,11 +524,124 @@
         </div>
       </div>
 
+      <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title text-center" id="editItemTitle">修改商品</h4>
+            </div>
+
+            <form class="form-validate form-horizontal" id="editItem_form" method="post" action="<%=request.getContextPath()%>/editItem.action">
+              <input type="hidden" id="editid" name="id"/>
+              <div class="modal-body">
+
+                <div class="form-group">
+                  <label for="editname" class="control-label col-lg-2">名称<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="editname" name="name" type="text"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="editvariety" class="control-label col-lg-2">品种<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="editvariety" name="variety" type="text"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="editstandard" class="control-label col-lg-2">规格<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="editstandard" name="standard" type="text"/>
+                  </div>
+                </div>
+
+                <input type="hidden" id="editstorage" name="storage" value="">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary">修改</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="noIdWarn" tabindex="-1" role="dialog" aria-labelledby="noIdWarnLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title text-center" id="noIdWarnTitle">警告</h4>
+            </div>
+            <div class="modal-body">
+              <h2>请选择要删除的条目！</h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="confirmDelItem" tabindex="-1" role="dialog" aria-labelledby="confirmDelItemLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title text-center" id="confirmDelITitle">警告</h4>
+            </div>
+            <div class="modal-body">
+              <h2>确定删除所选的条目？</h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-error" data-dismiss="modal">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
     <!--main content end-->
   </section>
   <!-- container section start -->
 </section>
+
+<form name="delItemForm" method="post" action="<%=request.getContextPath()%>/delItem.action">
+  <input type="hidden" id="delId" name="id" value="123"/>
+</form>
+
+<script type="text/javascript">
+
+  function delItem(i){
+
+//   $("#confirmDelItem").modal("show");
+    document.getElementById("delId").value=i;
+    document.delItemForm.submit();
+  }
+
+  function confirmDelItem(i){
+
+  }
+  function editItem(id, name, variety, standard, storage){
+    document.getElementById("editid").value=id;
+    document.getElementById("editname").value=name;
+    document.getElementById("editvariety").value=variety;
+    document.getElementById("editstandard").value=standard;
+    document.getElementById("editstorage").value=storage;
+    $("#editItem").modal("show");
+  }
+</script>
+
 <!-- javascripts -->
 <script src="js/jquery.js"></script>
 <script src="js/jquery-ui-1.10.4.min.js"></script>
@@ -623,15 +738,41 @@ function refrashItem(){
               i = i + 1;
             }
             var itemHtml = '';
-            for(var m = 0; m < itemsArray.length; m++){
+            if(itemsArray.length > 0){
+              itemHtml += '<tr>';
+              itemHtml += '<td><input type="checkbox" name="itemId" value="' + itemsArray[0][0] + '"></td>';
+              itemHtml += '<td>' + (0 + 1) + '</td>';
+              itemHtml += '<td>' + itemsArray[0][1] + '</td>';
+              itemHtml += '<td>' + itemsArray[0][2] + '</td>';
+              itemHtml += '<td>' + itemsArray[0][3] + '</td>';
+              itemHtml += '<td>' + itemsArray[0][4] + '</td>';
+              itemHtml += '<td><div class="btn-group">';
+              itemHtml += '<a id="editButton1" rel="popover" data-content="im data" class="btn btn-warning" onclick="editItem(\'' + itemsArray[0][0] + '\',';
+              itemHtml += '\'' + itemsArray[0][1] + '\',';
+              itemHtml += '\'' + itemsArray[0][2] + '\',';
+              itemHtml += '\'' + itemsArray[0][3] + '\',';
+              itemHtml += '\'' + itemsArray[0][4] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
+              itemHtml += '<a class="btn btn-danger" onclick="delItem(\'' + itemsArray[0][0] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
+
+            }
+
+
+            for(var m = 1; m < itemsArray.length; m++){
+
               itemHtml += '<tr>';
               itemHtml += '<td><input type="checkbox" name="itemId" value="' + itemsArray[m][0] + '"></td>';
+              itemHtml += '<td>' + (m + 1) + '</td>';
               itemHtml += '<td>' + itemsArray[m][1] + '</td>';
               itemHtml += '<td>' + itemsArray[m][2] + '</td>';
               itemHtml += '<td>' + itemsArray[m][3] + '</td>';
               itemHtml += '<td>' + itemsArray[m][4] + '</td>';
-              itemHtml += '<td><div class="btn-group"><a class="btn btn-warning" href="#"><i class="icon_pencil-edit_alt"></i></a>';
-              itemHtml += '<a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></div></td></tr>';
+              itemHtml += '<td><div class="btn-group">';
+              itemHtml += '<a class="btn btn-warning" onclick="editItem(\'' + itemsArray[m][0] + '\',';
+              itemHtml += '\'' + itemsArray[m][1] + '\',';
+              itemHtml += '\'' + itemsArray[m][2] + '\',';
+              itemHtml += '\'' + itemsArray[m][3] + '\',';
+              itemHtml += '\'' + itemsArray[m][4] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
+              itemHtml += '<a class="btn btn-danger" onclick="delItem(\'' + itemsArray[m][0] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
             }
             document.getElementById("itemBody").innerHTML = itemHtml;
 
@@ -643,6 +784,9 @@ function refrashItem(){
   });
 
   window.onload=refrashItem;
+  $(function(){
+    $("#editButton").popover();
+  });
 </script>
 
 </body>

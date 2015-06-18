@@ -20,10 +20,14 @@ public class UserService{
 
     private boolean checkLoginNameIsExistent(String loginName){
         if(loginName == null) return false;
-        List<ComUser> comUserList = comUserDAO.findByLoginName(loginName);
+        ComUser user = new ComUser();
+        user.setLoginName(loginName);
+        user.setStatus(0);
+        List<ComUser> comUserList = comUserDAO.findByExample(user);
         return (comUserList != null && comUserList.size() > 0);
 
     }
+
     private boolean checkSignUpIsOk(ComUser comUser){
         return (comUser != null && !checkLoginNameIsExistent(comUser.getLoginName()));
     }
@@ -35,6 +39,7 @@ public class UserService{
     public boolean loginSuccess(ComUser comUser){
 
         comUser.setPassword(MD5.get32(comUser.getPassword()));
+        comUser.setStatus(0);
         List<ComUser> comUserList = comUserDAO.findByExample(comUser);
 
         if(comUserList != null && comUserList.size() == 1){
@@ -42,6 +47,7 @@ public class UserService{
             user.setId(userTmp.getId());
             user.setLoginName(userTmp.getLoginName());
             user.setName(userTmp.getName());
+            user.setStatus(userTmp.getStatus());
             return true;
         }else{
             return false;
@@ -51,6 +57,7 @@ public class UserService{
     public boolean signUpSuccess(ComUser comUser){
         if(checkSignUpIsOk(comUser)) {
             comUser.setPassword(MD5.get32(comUser.getPassword()));
+            comUser.setStatus(0);
             comUserDAO.save(comUser);
             return true;
         }

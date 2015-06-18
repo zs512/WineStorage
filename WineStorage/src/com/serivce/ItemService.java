@@ -31,6 +31,7 @@ public class ItemService extends PublicService{
         comItem.setName(name);
         comItem.setVariety(variety);
         comItem.setStandard(standard);
+        comItem.setStatus(0);
         List<ComItem> comItemList = comItemDAO.findByExample(comItem);
         return (comItemList != null && comItemList.size() > 0);
     }
@@ -41,19 +42,51 @@ public class ItemService extends PublicService{
                 checkVarietyIsOk(comItem.getVariety()) &&
                 checkStandardIsOk(comItem.getStandard()) && !checkItemIsExistent(comItem.getName(), comItem.getVariety(), comItem.getStandard()));
     }
+
+    private boolean checkBeforeDel(String itemId){
+        if(itemId == null) return false;
+        ComItem item = comItemDAO.findById(itemId);
+        return (item != null && item.getStorage() <= 0);
+    }
+
+    private boolean checkBeforeEdit(ComItem comItem) {
+        if(comItem == null || comItem.getId() == null) return false;
+        ComItem itemTmp = comItemDAO.findById(comItem.getId());
+        return (comItem != null &&
+                itemTmp != null &&
+                checkNameIsOk(comItem.getName()) &&
+                checkVarietyIsOk(comItem.getVariety()) &&
+                checkStandardIsOk(comItem.getStandard()));
+    }
+
     public boolean addItem(ComItem comItem){
         if(checkBeforeAdd(comItem)){
+            comItem.setStatus(0);
             comItemDAO.save(comItem);
             return true;
         }else{
             return false;
         }
     }
+
     public List<ComItem> getAllItem(){
-        List<ComItem> comItemList = comItemDAO.findAll();
+        List<ComItem> comItemList = comItemDAO.findByStatus(0);
         return comItemList;
     }
+
     public boolean delItem(String itemId){
-        return false;
+        if(checkBeforeDel(itemId)){
+            ComItem item = comItemDAO.findById(itemId);
+            item.setStatus(1);
+            comItemDAO.attachDirty(item);
+            return true;
+        }else return false;
     }
+    public boolean editItem(ComItem comItem){
+        if(checkBeforeEdit(comItem)){
+            comItemDAO.attachDirty(comItem);
+            return true;
+        }else return false;
+    }
+
 }

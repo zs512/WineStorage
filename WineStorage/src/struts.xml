@@ -49,11 +49,23 @@
         </action>
     </package>
 
-    <package name="getAllItem" extends="json-default">
+    <package name="ItemManage" extends="json-default">
         <action name="getAllItem" class="com.action.GetAllItemAction">
             <result name="success" type="json">
                 <param name="root">result</param>
             </result>
+        </action>
+        <action name="delSelectItem" class="com.action.DelSelectedItemAction">
+            <result name="success" type="json">
+                <param name="root">result</param>
+            </result>
+        </action>
+        <action name="delItem" class="com.action.DelItemAction">
+            <result name="success">/itemManage.jsp
+            </result>
+        </action>
+        <action name="editItem" class="com.action.EditItemAction">
+            <result name="success">/itemManage.jsp</result>
         </action>
     </package>
 

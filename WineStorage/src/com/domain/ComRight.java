@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -26,6 +24,7 @@ public class ComRight implements java.io.Serializable {
 	private String id;
 	private String rightName;
 	private String describ;
+	private Integer status;
 	private Set<ComUserRight> comUserRights = new HashSet<ComUserRight>(0);
 
 	// Constructors
@@ -40,10 +39,11 @@ public class ComRight implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public ComRight(String rightName, String describ,
+	public ComRight(String rightName, String describ, Integer status,
 			Set<ComUserRight> comUserRights) {
 		this.rightName = rightName;
 		this.describ = describ;
+		this.status = status;
 		this.comUserRights = comUserRights;
 	}
 
@@ -78,8 +78,16 @@ public class ComRight implements java.io.Serializable {
 		this.describ = describ;
 	}
 
+	@Column(name = "status")
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
-	@JsonIgnore
 	public Set<ComUserRight> getComUserRights() {
 		return this.comUserRights;
 	}

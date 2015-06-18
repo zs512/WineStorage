@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -27,6 +25,7 @@ public class ComUser implements java.io.Serializable {
 	private String loginName;
 	private String password;
 	private String name;
+	private Integer status;
 	private Set<ComInStorage> comInStoragesForAgent = new HashSet<ComInStorage>(
 			0);
 	private Set<ComUserRight> comUserRights = new HashSet<ComUserRight>(0);
@@ -56,7 +55,7 @@ public class ComUser implements java.io.Serializable {
 
 	/** full constructor */
 	public ComUser(String loginName, String password, String name,
-			Set<ComInStorage> comInStoragesForAgent,
+			Integer status, Set<ComInStorage> comInStoragesForAgent,
 			Set<ComUserRight> comUserRights,
 			Set<ComInStorage> comInStoragesForApproval,
 			Set<ComInStorage> comInStoragesForKeyboarder,
@@ -66,6 +65,7 @@ public class ComUser implements java.io.Serializable {
 		this.loginName = loginName;
 		this.password = password;
 		this.name = name;
+		this.status = status;
 		this.comInStoragesForAgent = comInStoragesForAgent;
 		this.comUserRights = comUserRights;
 		this.comInStoragesForApproval = comInStoragesForApproval;
@@ -115,8 +115,16 @@ public class ComUser implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@Column(name = "status")
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByAgent")
-	@JsonIgnore
 	public Set<ComInStorage> getComInStoragesForAgent() {
 		return this.comInStoragesForAgent;
 	}
@@ -126,7 +134,6 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
-	@JsonIgnore
 	public Set<ComUserRight> getComUserRights() {
 		return this.comUserRights;
 	}
@@ -136,7 +143,6 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByApproval")
-	@JsonIgnore
 	public Set<ComInStorage> getComInStoragesForApproval() {
 		return this.comInStoragesForApproval;
 	}
@@ -147,7 +153,6 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByKeyboarder")
-	@JsonIgnore
 	public Set<ComInStorage> getComInStoragesForKeyboarder() {
 		return this.comInStoragesForKeyboarder;
 	}
@@ -158,7 +163,6 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByKeyboarder")
-	@JsonIgnore
 	public Set<ComOutStorage> getComOutStoragesForKeyboarder() {
 		return this.comOutStoragesForKeyboarder;
 	}
@@ -169,7 +173,6 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByApproval")
-	@JsonIgnore
 	public Set<ComOutStorage> getComOutStoragesForApproval() {
 		return this.comOutStoragesForApproval;
 	}
@@ -180,7 +183,6 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByAgent")
-	@JsonIgnore
 	public Set<ComOutStorage> getComOutStoragesForAgent() {
 		return this.comOutStoragesForAgent;
 	}

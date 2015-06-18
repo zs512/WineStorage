@@ -35,6 +35,7 @@ public class ComUserDAO {
 	public static final String LOGIN_NAME = "loginName";
 	public static final String PASSWORD = "password";
 	public static final String NAME = "name";
+	public static final String STATUS = "status";
 
 	private SessionFactory sessionFactory;
 
@@ -124,6 +125,10 @@ public class ComUserDAO {
 
 	public List<ComUser> findByName(Object name) {
 		return findByProperty(NAME, name);
+	}
+
+	public List<ComUser> findByStatus(Object status) {
+		return findByProperty(STATUS, status);
 	}
 
 	public List findAll() {

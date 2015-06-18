@@ -24,6 +24,7 @@ public class ComUserRight implements java.io.Serializable {
 	private ComRight comRight;
 	private String userId;
 	private String rightId;
+	private Integer status;
 
 	// Constructors
 
@@ -31,13 +32,23 @@ public class ComUserRight implements java.io.Serializable {
 	public ComUserRight() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public ComUserRight(ComUser comUser, ComRight comRight, String userId,
 			String rightId) {
 		this.comUser = comUser;
 		this.comRight = comRight;
 		this.userId = userId;
 		this.rightId = rightId;
+	}
+
+	/** full constructor */
+	public ComUserRight(ComUser comUser, ComRight comRight, String userId,
+			String rightId, Integer status) {
+		this.comUser = comUser;
+		this.comRight = comRight;
+		this.userId = userId;
+		this.rightId = rightId;
+		this.status = status;
 	}
 
 	// Property accessors
@@ -89,6 +100,15 @@ public class ComUserRight implements java.io.Serializable {
 
 	public void setRightId(String rightId) {
 		this.rightId = rightId;
+	}
+
+	@Column(name = "status")
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }
