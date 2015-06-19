@@ -30,6 +30,9 @@
         <action name="itemManage">
             <result>/itemManage.jsp</result>
         </action>
+        <action name="inStorageManage">
+            <result>/inStorage.jsp</result>
+        </action>
     </package>
 
 

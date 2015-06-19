@@ -344,12 +344,12 @@
         <li class="sub-menu">
           <a href="javascript:;" class="">
             <i class="icon_document_alt"></i>
-            <span>Forms</span>
+            <span>出入库管理</span>
             <span class="menu-arrow arrow_carrot-right"></span>
           </a>
           <ul class="sub">
-            <li><a class="" href="form_component.jsp">Form Elements</a></li>
-            <li><a class="" href="form_validation.jsp">Form Validation</a></li>
+            <li><a class="" href="<%=request.getContextPath()%>/inStorageManage.action">入库管理</a></li>
+            <li><a class="" href="<%=request.getContextPath()%>/outStorageManage.action">出库管理</a></li>
           </ul>
         </li>
         <li class="sub-menu">
