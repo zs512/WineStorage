@@ -449,6 +449,7 @@
                   <tr>
                     <th>选择</th>
                     <th>序号</th>
+                    <td>条形码</td>
                     <th>名称</th>
                     <th>品种</th>
                     <th>规格</th>
@@ -490,6 +491,13 @@
 
             <form class="form-validate form-horizontal" id="addItem_form" method="post" action="<%=request.getContextPath()%>/addItem.action">
               <div class="modal-body">
+
+                <div class="form-group">
+                  <label for="addbarcode" class="control-label col-lg-2">条形码<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="addbarcode" name="barcode" type="text"/>
+                  </div>
+                </div>
 
                 <div class="form-group">
                   <label for="addname" class="control-label col-lg-2">名称<span class="required">*</span></label>
@@ -537,6 +545,13 @@
             <form class="form-validate form-horizontal" id="editItem_form" method="post" action="<%=request.getContextPath()%>/editItem.action">
               <input type="hidden" id="editid" name="id"/>
               <div class="modal-body">
+
+                <div class="form-group">
+                  <label for="editbarcode" class="control-label col-lg-2">条形码<span class="required">*</span></label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="editbarcode" name="barcode" type="text"/>
+                  </div>
+                </div>
 
                 <div class="form-group">
                   <label for="editname" class="control-label col-lg-2">名称<span class="required">*</span></label>
@@ -659,8 +674,9 @@
   function confirmDelItem(i){
 
   }
-  function editItem(id, name, variety, standard, storage){
+  function editItem(id, barcode, name, variety, standard, storage){
     document.getElementById("editid").value=id;
+    document.getElementById("editbarcode").value=barcode;
     document.getElementById("editname").value=name;
     document.getElementById("editvariety").value=variety;
     document.getElementById("editstandard").value=standard;
@@ -769,16 +785,18 @@ function refrashItem(){
               itemHtml += '<tr>';
               itemHtml += '<td><input type="checkbox" name="itemId" value="' + itemsArray[0][0] + '"></td>';
               itemHtml += '<td>' + (0 + 1) + '</td>';
+              itemHtml += '<td>' + itemsArray[0][4] + '</td>';
               itemHtml += '<td>' + itemsArray[0][1] + '</td>';
               itemHtml += '<td>' + itemsArray[0][2] + '</td>';
               itemHtml += '<td>' + itemsArray[0][3] + '</td>';
-              itemHtml += '<td>' + itemsArray[0][4] + '</td>';
+              itemHtml += '<td>' + itemsArray[0][5] + '</td>';
               itemHtml += '<td><div class="btn-group">';
               itemHtml += '<a id="editButton1" rel="popover" data-content="im data" class="btn btn-warning" onclick="editItem(\'' + itemsArray[0][0] + '\',';
+              itemHtml += '\'' + itemsArray[0][4] + '\',';
               itemHtml += '\'' + itemsArray[0][1] + '\',';
               itemHtml += '\'' + itemsArray[0][2] + '\',';
               itemHtml += '\'' + itemsArray[0][3] + '\',';
-              itemHtml += '\'' + itemsArray[0][4] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
+              itemHtml += '\'' + itemsArray[0][5] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
               itemHtml += '<a class="btn btn-danger" onclick="delItem(\'' + itemsArray[0][0] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
 
             }
@@ -789,16 +807,18 @@ function refrashItem(){
               itemHtml += '<tr>';
               itemHtml += '<td><input type="checkbox" name="itemId" value="' + itemsArray[m][0] + '"></td>';
               itemHtml += '<td>' + (m + 1) + '</td>';
+              itemHtml += '<td>' + itemsArray[m][4] + '</td>';
               itemHtml += '<td>' + itemsArray[m][1] + '</td>';
               itemHtml += '<td>' + itemsArray[m][2] + '</td>';
               itemHtml += '<td>' + itemsArray[m][3] + '</td>';
-              itemHtml += '<td>' + itemsArray[m][4] + '</td>';
+              itemHtml += '<td>' + itemsArray[m][5] + '</td>';
               itemHtml += '<td><div class="btn-group">';
               itemHtml += '<a class="btn btn-warning" onclick="editItem(\'' + itemsArray[m][0] + '\',';
+              itemHtml += '\'' + itemsArray[m][4] + '\',';
               itemHtml += '\'' + itemsArray[m][1] + '\',';
               itemHtml += '\'' + itemsArray[m][2] + '\',';
               itemHtml += '\'' + itemsArray[m][3] + '\',';
-              itemHtml += '\'' + itemsArray[m][4] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
+              itemHtml += '\'' + itemsArray[m][5] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
               itemHtml += '<a class="btn btn-danger" onclick="delItem(\'' + itemsArray[m][0] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
             }
             document.getElementById("itemBody").innerHTML = itemHtml;

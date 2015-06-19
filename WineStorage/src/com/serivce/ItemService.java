@@ -16,6 +16,10 @@ public class ItemService extends PublicService{
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
     ComItemDAO comItemDAO = (ComItemDAO)applicationContext.getBean("ComItemDAO");
 
+    private boolean checkBarcodeIsOk(String barcode){
+        return checkStringSizeIsOk(barcode, 1, 50);
+    }
+
     private boolean checkNameIsOk(String itemName){
         return checkStringSizeIsOk(itemName, 1, 50);
     }
@@ -28,8 +32,9 @@ public class ItemService extends PublicService{
         return checkStringSizeIsOk(standard, 1, 50);
     }
 
-    private boolean checkItemIsExistent(String name, String variety, String standard){
+    private boolean checkItemIsExistent(String barcode, String name, String variety, String standard){
         ComItem comItem = new ComItem();
+        comItem.setBarcode(barcode);
         comItem.setName(name);
         comItem.setVariety(variety);
         comItem.setStandard(standard);
@@ -38,11 +43,13 @@ public class ItemService extends PublicService{
         return (comItemList != null && comItemList.size() > 0);
     }
 
+
     private boolean checkBeforeAdd(ComItem comItem){
         return (comItem != null &&
                 checkNameIsOk(comItem.getName()) &&
                 checkVarietyIsOk(comItem.getVariety()) &&
-                checkStandardIsOk(comItem.getStandard()) && !checkItemIsExistent(comItem.getName(), comItem.getVariety(), comItem.getStandard()));
+                checkStandardIsOk(comItem.getStandard()) &&
+                checkBarcodeIsOk(comItem.getBarcode()) && !checkItemIsExistent(comItem.getBarcode(), comItem.getName(), comItem.getVariety(), comItem.getStandard()));
     }
 
     private boolean checkBeforeDel(String itemId){
@@ -70,7 +77,8 @@ public class ItemService extends PublicService{
                 checkNameIsOk(comItem.getName()) &&
                 checkVarietyIsOk(comItem.getVariety()) &&
                 checkStandardIsOk(comItem.getStandard()) &&
-                !checkItemIsExistent(comItem.getName(), comItem.getVariety(), comItem.getStandard()));
+                checkBarcodeIsOk(comItem.getBarcode()) &&
+                !checkItemIsExistent(comItem.getBarcode(), comItem.getName(), comItem.getVariety(), comItem.getStandard()));
     }
 
     @Transactional

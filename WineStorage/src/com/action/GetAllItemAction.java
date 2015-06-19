@@ -75,6 +75,7 @@ public class GetAllItemAction extends ActionSupport implements RequestAware, Ses
                     "name\":\"" + item.getName() + "\",\"" +
                     "variety\":\"" + item.getVariety() + "\",\"" +
                     "standard\":\"" + item.getStandard() + "\",\"" +
+                    "barcode\":\"" + item.getBarcode() + "\",\"" +
                     "storage\":\"" + item.getStorage().toString() + "\"},";
         }
         if(",".equals(json.substring(json.length() - 1))){

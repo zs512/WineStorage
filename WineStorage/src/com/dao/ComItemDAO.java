@@ -37,6 +37,7 @@ public class ComItemDAO {
 	public static final String STANDARD = "standard";
 	public static final String STORAGE = "storage";
 	public static final String STATUS = "status";
+	public static final String BARCODE = "barcode";
 
 	private SessionFactory sessionFactory;
 
@@ -134,6 +135,10 @@ public class ComItemDAO {
 
 	public List<ComItem> findByStatus(Object status) {
 		return findByProperty(STATUS, status);
+	}
+
+	public List<ComItem> findByBarcode(Object barcode) {
+		return findByProperty(BARCODE, barcode);
 	}
 
 	public List findAll() {

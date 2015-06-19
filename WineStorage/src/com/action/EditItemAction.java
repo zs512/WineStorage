@@ -19,11 +19,19 @@ public class EditItemAction extends ActionSupport implements RequestAware, Sessi
     Map<String, Object> application;
 
     private String id;
+    private String barcode;
     private String name;
     private String variety;
     private String standard;
     private String storage;
 
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
     public String getId() {
         return id;
     }
@@ -83,6 +91,7 @@ public class EditItemAction extends ActionSupport implements RequestAware, Sessi
     public String execute() throws Exception {
         ComItem comItem = new ComItem();
         comItem.setId(getId());
+        comItem.setBarcode(getBarcode());
         comItem.setName(getName());
         comItem.setVariety(getVariety());
         comItem.setStandard(getStandard());

@@ -27,6 +27,7 @@ public class ComItem implements java.io.Serializable {
 	private String standard;
 	private Integer storage;
 	private Integer status;
+	private String barcode;
 	private Set<ComOutStorage> comOutStorages = new HashSet<ComOutStorage>(0);
 	private Set<ComInStorage> comInStorages = new HashSet<ComInStorage>(0);
 
@@ -46,13 +47,14 @@ public class ComItem implements java.io.Serializable {
 
 	/** full constructor */
 	public ComItem(String name, String variety, String standard,
-			Integer storage, Integer status, Set<ComOutStorage> comOutStorages,
-			Set<ComInStorage> comInStorages) {
+			Integer storage, Integer status, String barcode,
+			Set<ComOutStorage> comOutStorages, Set<ComInStorage> comInStorages) {
 		this.name = name;
 		this.variety = variety;
 		this.standard = standard;
 		this.storage = storage;
 		this.status = status;
+		this.barcode = barcode;
 		this.comOutStorages = comOutStorages;
 		this.comInStorages = comInStorages;
 	}
@@ -113,6 +115,15 @@ public class ComItem implements java.io.Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	@Column(name = "barcode", length = 50)
+	public String getBarcode() {
+		return this.barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comItem")

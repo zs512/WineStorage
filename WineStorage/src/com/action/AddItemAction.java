@@ -22,6 +22,15 @@ public class AddItemAction extends ActionSupport implements RequestAware, Sessio
     private String variety;
     private String standard;
     private String storage;
+    private String barcode;
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
 
     public String getName() {
         return name;
@@ -73,6 +82,7 @@ public class AddItemAction extends ActionSupport implements RequestAware, Sessio
     @Override
     public String execute() throws Exception {
         ComItem item = new ComItem();
+        item.setBarcode(barcode);
         item.setName(name);
         item.setVariety(variety);
         item.setStandard(standard);
