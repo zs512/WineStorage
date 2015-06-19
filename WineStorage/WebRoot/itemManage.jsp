@@ -437,7 +437,7 @@
                 <div class="btn-group">
                   <button type="button" id="refreshItem" class="btn btn-success">刷新</button>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">添加</button>
-                  <button type="button" class="btn btn-danger">删除</button>
+                  <button type="button" class="btn btn-danger" onclick="delItems()">删除</button>
                 </div>
               </div>
             </div>
@@ -620,6 +620,12 @@
   <input type="hidden" id="delId" name="id" value="123"/>
 </form>
 
+<form name="delItemsForm" method="post" action="<%=request.getContextPath()%>/delItems.action">
+  <div id="delItemsInput">
+
+  </div>
+</form>
+
 <script type="text/javascript">
 
   function delItem(i){
@@ -627,6 +633,27 @@
 //   $("#confirmDelItem").modal("show");
     document.getElementById("delId").value=i;
     document.delItemForm.submit();
+  }
+
+  function delItems(){
+    var itemIds = document.getElementsByName("itemId");
+    var ids = new Array();
+    var j = 0;
+    for(var i = 0; i < itemIds.length; i++){
+      if(itemIds[i].type == "checkbox" && itemIds[i].checked == true){
+        ids[j++] = itemIds[i].value;
+      }
+    }
+    if(j == 0){
+      $("#noIdWarn").modal("show");
+      return;
+    }
+    var delItemsFormInputHtml = '';
+    for(var k = 0; k < ids.length; k++){
+      delItemsFormInputHtml += '<input type="hidden" name="idList[' + k + ']" value="'+ ids[k] + '">';
+    }
+    document.getElementById("delItemsInput").innerHTML = delItemsFormInputHtml;
+    document.delItemsForm.submit();
   }
 
   function confirmDelItem(i){

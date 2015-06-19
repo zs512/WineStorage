@@ -67,6 +67,9 @@
         <action name="editItem" class="com.action.EditItemAction">
             <result name="success">/itemManage.jsp</result>
         </action>
+        <action name="delItems" class="com.action.DelItemsAction">
+            <result name="success">/itemManage.jsp</result>
+        </action>
     </package>
 
 </struts>

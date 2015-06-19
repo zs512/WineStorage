@@ -4,7 +4,9 @@ import com.dao.ComItemDAO;
 import com.domain.ComItem;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -49,6 +51,17 @@ public class ItemService extends PublicService{
         return (item != null && item.getStorage() <= 0);
     }
 
+    private boolean checkBeforeDel(List<String> itemIds){
+        if(itemIds == null || itemIds.size() <= 0) return false;
+        Iterator<String> iterator = itemIds.iterator();
+        while(iterator.hasNext()){
+            String id = iterator.next();
+            if(!checkBeforeDel(id))
+                return false;
+        }
+        return true;
+    }
+
     private boolean checkBeforeEdit(ComItem comItem) {
         if(comItem == null || comItem.getId() == null) return false;
         ComItem itemTmp = comItemDAO.findById(comItem.getId());
@@ -56,7 +69,29 @@ public class ItemService extends PublicService{
                 itemTmp != null &&
                 checkNameIsOk(comItem.getName()) &&
                 checkVarietyIsOk(comItem.getVariety()) &&
-                checkStandardIsOk(comItem.getStandard()));
+                checkStandardIsOk(comItem.getStandard()) &&
+                !checkItemIsExistent(comItem.getName(), comItem.getVariety(), comItem.getStandard()));
+    }
+
+    @Transactional
+    private boolean innerDelItems(List<String> ids){
+        boolean flag = false;
+        try{
+            ComItem comItem;
+            Iterator<String> iterator = ids.iterator();
+            while(iterator.hasNext()){
+                String id = iterator.next();
+                comItem = comItemDAO.findById(id);
+                comItem.setStatus(1);
+                comItemDAO.attachDirty(comItem);
+            }
+            flag = true;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("delete fail");
+        }finally {
+            return flag;
+        }
     }
 
     public boolean addItem(ComItem comItem){
@@ -87,6 +122,12 @@ public class ItemService extends PublicService{
             comItemDAO.attachDirty(comItem);
             return true;
         }else return false;
+    }
+    public boolean delItems(List<String> itemIds){
+        if(checkBeforeDel(itemIds)){
+            return innerDelItems(itemIds);
+        }
+        return false;
     }
 
 }
