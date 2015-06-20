@@ -43,7 +43,6 @@ public class ItemService extends PublicService{
         return (comItemList != null && comItemList.size() > 0);
     }
 
-
     private boolean checkBeforeAdd(ComItem comItem){
         return (comItem != null &&
                 checkNameIsOk(comItem.getName()) &&
@@ -102,6 +101,8 @@ public class ItemService extends PublicService{
         }
     }
 
+    /*---------------------------------------------------------*/
+
     public boolean addItem(ComItem comItem){
         if(checkBeforeAdd(comItem)){
             comItem.setStatus(0);
@@ -113,8 +114,7 @@ public class ItemService extends PublicService{
     }
 
     public List<ComItem> getAllItem(){
-        List<ComItem> comItemList = comItemDAO.findByStatus(0);
-        return comItemList;
+        return comItemDAO.findByStatus(0);
     }
 
     public boolean delItem(String itemId){
@@ -125,12 +125,14 @@ public class ItemService extends PublicService{
             return true;
         }else return false;
     }
+
     public boolean editItem(ComItem comItem){
         if(checkBeforeEdit(comItem)){
             comItemDAO.attachDirty(comItem);
             return true;
         }else return false;
     }
+
     public boolean delItems(List<String> itemIds){
         if(checkBeforeDel(itemIds)){
             return innerDelItems(itemIds);

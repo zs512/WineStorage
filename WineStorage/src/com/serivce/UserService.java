@@ -63,4 +63,9 @@ public class UserService{
         }
         return false;
     }
+
+    public ComUser getUserById(String id){
+        if(id == null) return null;
+        return comUserDAO.findById(id);
+    }
 }

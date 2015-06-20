@@ -23,11 +23,12 @@ public class ComOutStorage implements java.io.Serializable {
 	private String id;
 	private ComUser comUserByApproval;
 	private ComUser comUserByKeyboarder;
-	private ComUser comUserByAgent;
 	private ComItem comItem;
 	private Integer count;
 	private String deliveryPlace;
+	private String agent;
 	private Timestamp datetime;
+	private Timestamp approvalDatetime;
 	private Integer status;
 	private String remark;
 
@@ -38,32 +39,31 @@ public class ComOutStorage implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public ComOutStorage(ComUser comUserByApproval,
-			ComUser comUserByKeyboarder, ComUser comUserByAgent,
-			ComItem comItem, Integer count, String deliveryPlace,
+	public ComOutStorage(ComUser comUserByKeyboarder, ComItem comItem,
+			Integer count, String deliveryPlace, String agent,
 			Timestamp datetime, Integer status) {
-		this.comUserByApproval = comUserByApproval;
 		this.comUserByKeyboarder = comUserByKeyboarder;
-		this.comUserByAgent = comUserByAgent;
 		this.comItem = comItem;
 		this.count = count;
 		this.deliveryPlace = deliveryPlace;
+		this.agent = agent;
 		this.datetime = datetime;
 		this.status = status;
 	}
 
 	/** full constructor */
 	public ComOutStorage(ComUser comUserByApproval,
-			ComUser comUserByKeyboarder, ComUser comUserByAgent,
-			ComItem comItem, Integer count, String deliveryPlace,
-			Timestamp datetime, Integer status, String remark) {
+			ComUser comUserByKeyboarder, ComItem comItem, Integer count,
+			String deliveryPlace, String agent, Timestamp datetime,
+			Timestamp approvalDatetime, Integer status, String remark) {
 		this.comUserByApproval = comUserByApproval;
 		this.comUserByKeyboarder = comUserByKeyboarder;
-		this.comUserByAgent = comUserByAgent;
 		this.comItem = comItem;
 		this.count = count;
 		this.deliveryPlace = deliveryPlace;
+		this.agent = agent;
 		this.datetime = datetime;
+		this.approvalDatetime = approvalDatetime;
 		this.status = status;
 		this.remark = remark;
 	}
@@ -82,7 +82,7 @@ public class ComOutStorage implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "approval", nullable = false)
+	@JoinColumn(name = "approval")
 	public ComUser getComUserByApproval() {
 		return this.comUserByApproval;
 	}
@@ -99,16 +99,6 @@ public class ComOutStorage implements java.io.Serializable {
 
 	public void setComUserByKeyboarder(ComUser comUserByKeyboarder) {
 		this.comUserByKeyboarder = comUserByKeyboarder;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "agent", nullable = false)
-	public ComUser getComUserByAgent() {
-		return this.comUserByAgent;
-	}
-
-	public void setComUserByAgent(ComUser comUserByAgent) {
-		this.comUserByAgent = comUserByAgent;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -139,6 +129,15 @@ public class ComOutStorage implements java.io.Serializable {
 		this.deliveryPlace = deliveryPlace;
 	}
 
+	@Column(name = "agent", nullable = false, length = 50)
+	public String getAgent() {
+		return this.agent;
+	}
+
+	public void setAgent(String agent) {
+		this.agent = agent;
+	}
+
 	@Column(name = "datetime", nullable = false, length = 23)
 	public Timestamp getDatetime() {
 		return this.datetime;
@@ -146,6 +145,15 @@ public class ComOutStorage implements java.io.Serializable {
 
 	public void setDatetime(Timestamp datetime) {
 		this.datetime = datetime;
+	}
+
+	@Column(name = "approval_datetime", length = 23)
+	public Timestamp getApprovalDatetime() {
+		return this.approvalDatetime;
+	}
+
+	public void setApprovalDatetime(Timestamp approvalDatetime) {
+		this.approvalDatetime = approvalDatetime;
 	}
 
 	@Column(name = "status", nullable = false)

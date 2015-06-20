@@ -344,7 +344,7 @@
         <li class="sub-menu">
           <a href="javascript:;" class="">
             <i class="icon_document_alt"></i>
-            <span>出入库管理</span>
+            <span>入库管理</span>
             <span class="menu-arrow arrow_carrot-right"></span>
           </a>
           <ul class="sub">

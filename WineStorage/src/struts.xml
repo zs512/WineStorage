@@ -44,15 +44,12 @@
         </action>
     </package>
 
-    <package name="addItem" extends="struts-default">
+    <package name="ItemManage" extends="json-default">
         <default-interceptor-ref name="defaultStack"/>
         <action name="addItem" class="com.action.AddItemAction">
             <result name="success">/itemManage.jsp</result>
             <result name="fail">/itemManage.jsp</result>
         </action>
-    </package>
-
-    <package name="ItemManage" extends="json-default">
         <action name="getAllItem" class="com.action.GetAllItemAction">
             <result name="success" type="json">
                 <param name="root">result</param>
@@ -64,8 +61,7 @@
             </result>
         </action>
         <action name="delItem" class="com.action.DelItemAction">
-            <result name="success">/itemManage.jsp
-            </result>
+            <result name="success">/itemManage.jsp</result>
         </action>
         <action name="editItem" class="com.action.EditItemAction">
             <result name="success">/itemManage.jsp</result>
@@ -75,4 +71,16 @@
         </action>
     </package>
 
+    <package name="InStorageManage" extends="json-default">
+        <default-interceptor-ref name="defaultStack"/>
+        <action name="addInStorage" class="com.action.AddInStorageAction">
+            <result name="success">/inStorage.jsp</result>
+            <result name="error">/inStorage.jsp</result>
+        </action>
+        <action name="getAllInStorage" class="com.action.GetAllInStorageAction">
+            <result type="json">
+                <param name="root">resultJson</param>
+            </result>
+        </action>
+    </package>
 </struts>

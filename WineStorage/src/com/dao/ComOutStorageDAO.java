@@ -35,6 +35,7 @@ public class ComOutStorageDAO {
 	// property constants
 	public static final String COUNT = "count";
 	public static final String DELIVERY_PLACE = "deliveryPlace";
+	public static final String AGENT = "agent";
 	public static final String STATUS = "status";
 	public static final String REMARK = "remark";
 
@@ -122,6 +123,10 @@ public class ComOutStorageDAO {
 
 	public List<ComOutStorage> findByDeliveryPlace(Object deliveryPlace) {
 		return findByProperty(DELIVERY_PLACE, deliveryPlace);
+	}
+
+	public List<ComOutStorage> findByAgent(Object agent) {
+		return findByProperty(AGENT, agent);
 	}
 
 	public List<ComOutStorage> findByStatus(Object status) {

@@ -26,8 +26,6 @@ public class ComUser implements java.io.Serializable {
 	private String password;
 	private String name;
 	private Integer status;
-	private Set<ComInStorage> comInStoragesForAgent = new HashSet<ComInStorage>(
-			0);
 	private Set<ComUserRight> comUserRights = new HashSet<ComUserRight>(0);
 	private Set<ComInStorage> comInStoragesForApproval = new HashSet<ComInStorage>(
 			0);
@@ -36,8 +34,6 @@ public class ComUser implements java.io.Serializable {
 	private Set<ComOutStorage> comOutStoragesForKeyboarder = new HashSet<ComOutStorage>(
 			0);
 	private Set<ComOutStorage> comOutStoragesForApproval = new HashSet<ComOutStorage>(
-			0);
-	private Set<ComOutStorage> comOutStoragesForAgent = new HashSet<ComOutStorage>(
 			0);
 
 	// Constructors
@@ -55,24 +51,20 @@ public class ComUser implements java.io.Serializable {
 
 	/** full constructor */
 	public ComUser(String loginName, String password, String name,
-			Integer status, Set<ComInStorage> comInStoragesForAgent,
-			Set<ComUserRight> comUserRights,
+			Integer status, Set<ComUserRight> comUserRights,
 			Set<ComInStorage> comInStoragesForApproval,
 			Set<ComInStorage> comInStoragesForKeyboarder,
 			Set<ComOutStorage> comOutStoragesForKeyboarder,
-			Set<ComOutStorage> comOutStoragesForApproval,
-			Set<ComOutStorage> comOutStoragesForAgent) {
+			Set<ComOutStorage> comOutStoragesForApproval) {
 		this.loginName = loginName;
 		this.password = password;
 		this.name = name;
 		this.status = status;
-		this.comInStoragesForAgent = comInStoragesForAgent;
 		this.comUserRights = comUserRights;
 		this.comInStoragesForApproval = comInStoragesForApproval;
 		this.comInStoragesForKeyboarder = comInStoragesForKeyboarder;
 		this.comOutStoragesForKeyboarder = comOutStoragesForKeyboarder;
 		this.comOutStoragesForApproval = comOutStoragesForApproval;
-		this.comOutStoragesForAgent = comOutStoragesForAgent;
 	}
 
 	// Property accessors
@@ -124,15 +116,6 @@ public class ComUser implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByAgent")
-	public Set<ComInStorage> getComInStoragesForAgent() {
-		return this.comInStoragesForAgent;
-	}
-
-	public void setComInStoragesForAgent(Set<ComInStorage> comInStoragesForAgent) {
-		this.comInStoragesForAgent = comInStoragesForAgent;
-	}
-
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
 	public Set<ComUserRight> getComUserRights() {
 		return this.comUserRights;
@@ -180,16 +163,6 @@ public class ComUser implements java.io.Serializable {
 	public void setComOutStoragesForApproval(
 			Set<ComOutStorage> comOutStoragesForApproval) {
 		this.comOutStoragesForApproval = comOutStoragesForApproval;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByAgent")
-	public Set<ComOutStorage> getComOutStoragesForAgent() {
-		return this.comOutStoragesForAgent;
-	}
-
-	public void setComOutStoragesForAgent(
-			Set<ComOutStorage> comOutStoragesForAgent) {
-		this.comOutStoragesForAgent = comOutStoragesForAgent;
 	}
 
 }

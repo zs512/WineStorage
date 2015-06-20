@@ -3,6 +3,8 @@ package com.test;
 import com.dao.ComItemDAO;
 import com.domain.ComItem;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -16,8 +18,9 @@ public class TestMain {
 //        comUser.setLoginName("ruanqx");
 //        comUser.setName("ruanqixiang");
 //        comUser.setPassword(".");
-        String a = "abcde";
-        System.out.println(a.substring(0, a.length() - 1));
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(df.format(timestamp));
 
     }
 }
