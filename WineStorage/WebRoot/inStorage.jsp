@@ -259,15 +259,14 @@
                   <label for="addItemId" class="control-label col-lg-2">酒类<span class="required">*</span></label>
                   <div class="col-lg-9">
                     <div class="input-group">
-                      <input class="form-control" id="addItemId" name="itemId" type="text"/>
+                      <input class="form-control" id="addItemId" name="itemId" type="hidden"/>
+                      <input class="form-control" id="addItemName" type="text" readonly/>
                       <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" placeholder="">
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu pull-right">
-                          <li><a id="example" href="#" rel="popover" data-content="bb">aa</a></li>
-                          <li><a href="#">aa</a></li>
-                          <li><a href="#">aa</a></li>
+                        <ul class="dropdown-menu pull-right" role="menu" id="cropdownItemList">
+
                         </ul>
                       </div>
                     </div>
@@ -551,6 +550,42 @@
       }
     });
   });
+
+  function setInputValue(id, name){
+    document.getElementById("addItemId").value = id;
+    document.getElementById("addItemName").value = name;
+  }
+
+  function replaceModelSelectHtml(){
+    var Html='';
+    for(var i = 0; i < items.length; i++){
+      var content = '';
+      item = items[i];
+      content += '<strong>条形码:</strong> ' + item["barcode"] + '<br/>' +
+                 '<strong>名称: </strong>' + item["name"] + '<br/>'+
+                 '<strong>品种: </strong>' + item["variety"] + '<br/>'+
+                 '<strong>规格: </strong>' + item["standard"] + '<br/>'+
+                 '<strong>库存: </strong>' + item["storage"] + '<br/>';
+      Html+='<li><a href="javascript:setInputValue(\'' + item["id"] + '\',\'' + item["name"] + '\')" class="pop" data-toggle="popover" data-placement="right" data-content="' + content + '" data-original-title="" title="">  ' + item["name"] + '</a></li>';
+    }
+    document.getElementById("cropdownItemList").innerHTML=Html;
+    $(".pop").popover({ trigger: "manual" , html: true, animation:false})
+            .on("mouseenter", function () {
+              var _this = this;
+              $(this).popover("show");
+              $(".popover").on("mouseleave", function () {
+                $(_this).popover('hide');
+              });
+            }).on("mouseleave", function () {
+              var _this = this;
+              setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                  $(_this).popover("hide");
+                }
+              }, 1);
+            });
+  }
+
   function getJson(){
     $.getJSON("<%=request.getContextPath()%>/getAllInStorage.action",
             function(data){
@@ -566,17 +601,18 @@
               for(var key in itemMapInside){
                 var itemMap = {};
                 for(var inKey in itemMapInside[key]){
-                  itemMap[inKey] = itemMapInside[key][inKey];
+                  itemMap[inKey] = itemMapInside[key][inKey].toString();
                 }
                 items[itemIndex++] = itemMap;
               }
               for(var key in inStorageMapInside){
                 var inStorageMap = {};
                 for(var inKey in inStorageMapInside[key]){
-                  inStorageMap[inKey] = inStorageMapInside[key][inKey];
+                  inStorageMap[inKey] = inStorageMapInside[key][inKey].toString();
                 }
                 inStorages[inStorageIndex++] = inStorageMap;
               }
+              replaceModelSelectHtml();
 
     })
   }
@@ -585,9 +621,7 @@
   });
 
   window.onload=getJson;
-  $(function(){
-    $("#editButton").popover();
-  });
+
 </script>
 
 </body>

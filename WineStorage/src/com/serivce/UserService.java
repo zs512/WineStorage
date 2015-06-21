@@ -36,7 +36,7 @@ public class UserService{
         user = new ComUser();
     }
 
-    public boolean loginSuccess(ComUser comUser){
+    public String loginSuccess(ComUser comUser){
 
         comUser.setPassword(MD5.get32(comUser.getPassword()));
         comUser.setStatus(0);
@@ -48,9 +48,9 @@ public class UserService{
             user.setLoginName(userTmp.getLoginName());
             user.setName(userTmp.getName());
             user.setStatus(userTmp.getStatus());
-            return true;
+            return userTmp.getId();
         }else{
-            return false;
+            return null;
         }
     }
 

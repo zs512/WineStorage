@@ -70,14 +70,11 @@ public class GetAllInStorageAction extends ActionSupport implements RequestAware
 
     @Override
     public String execute() throws Exception {
-        System.out.println("GetAllInStorageAction");
         ItemService itemService = new ItemService();
         InStorageService inStorageService = new InStorageService();
         setItems(itemService.getAllItem());
         inStorages = inStorageService.getAllInStorage();
         setResultJson(getJson());
-        System.out.println("itemListSize:" + items.size());
-        System.out.println("inStorageListSize: " + inStorages.size());
         return SUCCESS;
     }
 
@@ -103,19 +100,20 @@ public class GetAllInStorageAction extends ActionSupport implements RequestAware
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         while(inStorageIterator.hasNext()){
             ComInStorage inStorage = inStorageIterator.next();
+            UserService userService = new UserService();
+            ComUser comUser = userService.getUserById(inStorage.getComUserByKeyboarder().getId());
             inStorageJson += "{\"id\":\"" + inStorage.getId() + "\"," +
                         "\"itemId\":\"" + inStorage.getComItem().getId() + "\"," +
                         "\"count\":\"" + inStorage.getCount() + "\"," +
                         "\"place\":\"" + inStorage.getSupplyPlace() + "\"," +
                         "\"agent\":\"" + inStorage.getAgent() + "\"," +
-                        "\"keyboarder\":\"" + inStorage.getComUserByKeyboarder().getName() + "\"," +
+                        "\"keyboarder\":\"" + comUser.getName() + "\"," +
                         "\"keyboarderTime\":\"" + df.format(inStorage.getDatetime()) + "\"," +
                         "\"status\":\"" + inStorage.getStatus() + "\"," +
                         "\"approval\":\"";
             if(inStorage.getComUserByApproval() != null && inStorage.getComUserByApproval().getId() != null){
-                String name;
+                String name = "";
                 if(inStorage.getComUserByApproval().getName() == null){
-                    UserService userService = new UserService();
                     ComUser user = userService.getUserById(inStorage.getComUserByApproval().getId());
                     name = user.getName();
                 }else{
@@ -124,7 +122,7 @@ public class GetAllInStorageAction extends ActionSupport implements RequestAware
                 inStorageJson += inStorage.getAgent() + "\"," +
                             "\"approvalTime\":\"" + df.format(inStorage.getApprovalDatetime()) + "\",";
             }else{
-                inStorageJson += "\",\"approvalTime\":\"\"";
+                inStorageJson += "\",\"approvalTime\":\"\",";
             }
 
             if(inStorage.getRemark() != null){
