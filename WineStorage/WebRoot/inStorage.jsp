@@ -205,7 +205,7 @@
                 <div class="btn-group">
                   <button type="button" id="refreshItem" class="btn btn-success">刷新</button>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">添加</button>
-                  <button type="button" class="btn btn-danger" onclick="delItems()">删除</button>
+                  <button type="button" class="btn btn-danger" onclick="delInStorages()">删除</button>
                 </div>
               </div>
             </div>
@@ -218,19 +218,17 @@
                     <th>选择</th>
                     <th>序号</th>
                     <th>商品名称</th>
-                    <th>来源地</th>
                     <th>入库数量</th>
                     <th>经办人</th>
                     <th>录入人员</th>
                     <th>录入时间</th>
                     <th>审批人</th>
                     <th>审批时间</th>
-                    <th>备注</th>
                     <th>状态</th>
                     <th>操作</th>
                   </tr>
                   </thead>
-                  <tbody id="itemBody">
+                  <tbody id="inStorageList">
 
                   </tbody>
                 </table>
@@ -411,12 +409,12 @@
   <!-- container section start -->
 </section>
 
-<form name="delItemForm" method="post" action="<%=request.getContextPath()%>/delItem.action">
+<form name="delInStorageForm" method="post" action="<%=request.getContextPath()%>/delInStorage.action">
   <input type="hidden" id="delId" name="id" value="123"/>
 </form>
 
-<form name="delItemsForm" method="post" action="<%=request.getContextPath()%>/delItems.action">
-  <div id="delItemsInput">
+<form name="delInStoragesForm" method="post" action="<%=request.getContextPath()%>/delInStorages.action">
+  <div id="delInStoragesInput">
 
   </div>
 </form>
@@ -425,32 +423,32 @@
 
   var items = new Array();
   var inStorages = new Array();
-  function delItem(i){
+  function delInStorage(i){
 
 //   $("#confirmDelItem").modal("show");
     document.getElementById("delId").value=i;
-    document.delItemForm.submit();
+    document.delInStorageForm.submit();
   }
 
-  function delItems(){
-    var itemIds = document.getElementsByName("itemId");
+  function delInStorages(){
+    var inStorageIds = document.getElementsByName("inStorageId");
     var ids = new Array();
     var j = 0;
-    for(var i = 0; i < itemIds.length; i++){
-      if(itemIds[i].type == "checkbox" && itemIds[i].checked == true){
-        ids[j++] = itemIds[i].value;
+    for(var i = 0; i < inStorageIds.length; i++){
+      if(inStorageIds[i].type == "checkbox" && inStorageIds[i].checked == true){
+        ids[j++] = inStorageIds[i].value;
       }
     }
     if(j == 0){
       $("#noIdWarn").modal("show");
       return;
     }
-    var delItemsFormInputHtml = '';
+    var delInStoragesFormInputHtml = '';
     for(var k = 0; k < ids.length; k++){
-      delItemsFormInputHtml += '<input type="hidden" name="idList[' + k + ']" value="'+ ids[k] + '">';
+      delInStoragesFormInputHtml += '<input type="hidden" name="idList[' + k + ']" value="'+ ids[k] + '">';
     }
-    document.getElementById("delItemsInput").innerHTML = delItemsFormInputHtml;
-    document.delItemsForm.submit();
+    document.getElementById("delInStoragesInput").innerHTML = delInStoragesFormInputHtml;
+    document.delInStoragesForm.submit();
   }
 
   function confirmDelItem(i){
@@ -557,7 +555,7 @@
   }
 
   function replaceModelSelectHtml(){
-    var Html='';
+    var Html = '';
     for(var i = 0; i < items.length; i++){
       var content = '';
       item = items[i];
@@ -566,9 +564,39 @@
                  '<strong>品种: </strong>' + item["variety"] + '<br/>'+
                  '<strong>规格: </strong>' + item["standard"] + '<br/>'+
                  '<strong>库存: </strong>' + item["storage"] + '<br/>';
-      Html+='<li><a href="javascript:setInputValue(\'' + item["id"] + '\',\'' + item["name"] + '\')" class="pop" data-toggle="popover" data-placement="right" data-content="' + content + '" data-original-title="" title="">  ' + item["name"] + '</a></li>';
+      Html+='<li><a href="javascript:setInputValue(\'' + item["id"] + '\',\'' + item["name"] + '\')" class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '" data-original-title="" title="">  ' + item["name"] + '</a></li>';
     }
     document.getElementById("cropdownItemList").innerHTML=Html;
+
+    Html = '';
+    var index = 1;
+    for(var i = 0; i < inStorages.length; i++){
+      inStorage = inStorages[i];
+      content = '<strong>来源地:</strong> ' + inStorage["place"] + '<br/>';
+      content += '<strong>备注:</strong> ' + inStorage["remark"] + '<br/>';
+      Html += '<tr>' +
+              '<td><input type="checkbox" name="inStorageId" value="' + inStorage["id"] + '"></td>' +
+              '<td>' + (index++) + '</td>' +
+              '<td><a class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '">' + inStorage["itemName"] + '</a></td>' +
+              '<td>' + inStorage["count"] + '</td>' +
+              '<td>' + inStorage["agent"] + '</td>' +
+              '<td>' + inStorage["keyboarder"] + '</td>' +
+              '<td>' + inStorage["keyboarderTime"] + '</td>' +
+              '<td>' + inStorage["approval"] + '</td>' +
+              '<td>' + inStorage["approvalTime"] + '</td>';
+      if(inStorage["status"] == "0"){
+        Html += '<td>待审</td>';
+      }else if(inStorage["status"] == "1"){
+        Html += '<td>未通过</td>'
+      }else{
+        Html += '<td>已录入</td>'
+      }
+      Html += '<td><div class="btn-group">';
+      Html += '<a class="btn btn-warning pop" data-toggle="popover" data-placement="left" data-content="编辑"><i class="icon_pencil-edit_alt"></i></a>';
+      Html += '<a class="btn btn-danger pop" data-toggle="popover" data-placement="left" data-content="删除" onclick="delInStorage(\'' + inStorage["id"] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
+    }
+    document.getElementById("inStorageList").innerHTML=Html;
+
     $(".pop").popover({ trigger: "manual" , html: true, animation:false})
             .on("mouseenter", function () {
               var _this = this;

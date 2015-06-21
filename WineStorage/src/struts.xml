@@ -82,5 +82,11 @@
                 <param name="root">resultJson</param>
             </result>
         </action>
+        <action name="delInStorage" class="com.action.DelInStorageAction">
+            <result name="success">/inStorage.jsp</result>
+        </action>
+        <action name="delInStorages" class="com.action.DelInStoragesAction">
+            <result name="success">/inStorage.jsp</result>
+        </action>
     </package>
 </struts>

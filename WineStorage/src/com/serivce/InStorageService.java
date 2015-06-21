@@ -8,6 +8,7 @@ import com.domain.ComItem;
 import com.domain.ComUser;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,6 +30,17 @@ public class InStorageService extends PublicService{
                 checkAgent(comInStorage.getAgent()) &&
                 checkKeyboarderIsOk(comInStorage.getComUserByKeyboarder().getId()) &&
                 checkRemark(comInStorage.getRemark()));
+    }
+
+    private boolean checkBeforeDel(String comInStorageId){
+        if(comInStorageId == null) return false;
+        return checkInStorageIsExistent(comInStorageId);
+    }
+
+    private boolean checkInStorageIsExistent(String id) {
+        if(id == null) return false;
+        ComInStorage comInStorage = comInStorageDAO.findById(id);
+        return (comInStorage != null && comInStorage.getId() != null);
     }
 
     private boolean checkRemark(String remark) {
@@ -65,6 +77,7 @@ public class InStorageService extends PublicService{
     public boolean addInStorage(ComInStorage comInStorage){
         if(checkBeforeAdd(comInStorage)){
             comInStorage.setStatus(0);
+            comInStorage.setNatureStatus(0);
             comInStorageDAO.save(comInStorage);
             return true;
         }else{
@@ -72,21 +85,57 @@ public class InStorageService extends PublicService{
         }
     }
 
+    public boolean delInStorage(String id){
+        if(checkBeforeDel(id)){
+            ComInStorage comInStorage = comInStorageDAO.findById(id);
+            comInStorage.setNatureStatus(1);
+            comInStorageDAO.attachDirty(comInStorage);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public List<ComInStorage> getAllInStorage(){
-        List<ComInStorage> resultList = new ArrayList<ComInStorage>();
-        List<ComInStorage> tmp = comInStorageDAO.findByStatus(0);
-        Iterator<ComInStorage> iterator = tmp.iterator();
-        while(iterator.hasNext()){
-            resultList.add(iterator.next());
+        return comInStorageDAO.findByNatureStatus(0);
+    }
+
+    public boolean delInStorages(List<String> inStorageIds){
+        if(checkBeforeDel(inStorageIds)){
+            return innerDelInStorages(inStorageIds);
         }
-        tmp = comInStorageDAO.findByStatus(1);
-        while(iterator.hasNext()){
-            resultList.add(iterator.next());
+        return false;
+    }
+
+    @Transactional
+    private boolean innerDelInStorages(List<String> inStorageIds) {
+        boolean flag = false;
+        try{
+            ComInStorage comInStorage;
+            Iterator<String> iterator = inStorageIds.iterator();
+            while(iterator.hasNext()){
+                String id = iterator.next();
+                comInStorage = comInStorageDAO.findById(id);
+                comInStorage.setNatureStatus(1);
+                comInStorageDAO.attachDirty(comInStorage);
+            }
+            flag = true;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("delete fail");
+        }finally{
+            return flag;
         }
-        tmp = comInStorageDAO.findByStatus(2);
+    }
+
+    private boolean checkBeforeDel(List<String> inStorageIds) {
+        if(inStorageIds == null || inStorageIds.size() <= 0) return false;
+        Iterator<String> iterator = inStorageIds.iterator();
         while(iterator.hasNext()){
-            resultList.add(iterator.next());
+            String id = iterator.next();
+            if(!checkBeforeDel(id))
+                return false;
         }
-        return resultList;
+        return true;
     }
 }

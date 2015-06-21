@@ -23,6 +23,18 @@ public class DelItemAction extends ActionSupport implements RequestAware, Sessio
 
     private String result;
 
+    public Map<String, Object> getRequest() {
+        return request;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public Map<String, Object> getApplication() {
+        return application;
+    }
+
     public String getResult() {
         return result;
     }

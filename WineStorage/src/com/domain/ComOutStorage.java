@@ -31,6 +31,7 @@ public class ComOutStorage implements java.io.Serializable {
 	private Timestamp approvalDatetime;
 	private Integer status;
 	private String remark;
+	private Integer natureStatus;
 
 	// Constructors
 
@@ -55,7 +56,8 @@ public class ComOutStorage implements java.io.Serializable {
 	public ComOutStorage(ComUser comUserByApproval,
 			ComUser comUserByKeyboarder, ComItem comItem, Integer count,
 			String deliveryPlace, String agent, Timestamp datetime,
-			Timestamp approvalDatetime, Integer status, String remark) {
+			Timestamp approvalDatetime, Integer status, String remark,
+			Integer natureStatus) {
 		this.comUserByApproval = comUserByApproval;
 		this.comUserByKeyboarder = comUserByKeyboarder;
 		this.comItem = comItem;
@@ -66,6 +68,7 @@ public class ComOutStorage implements java.io.Serializable {
 		this.approvalDatetime = approvalDatetime;
 		this.status = status;
 		this.remark = remark;
+		this.natureStatus = natureStatus;
 	}
 
 	// Property accessors
@@ -172,6 +175,15 @@ public class ComOutStorage implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	@Column(name = "nature_status")
+	public Integer getNatureStatus() {
+		return this.natureStatus;
+	}
+
+	public void setNatureStatus(Integer natureStatus) {
+		this.natureStatus = natureStatus;
 	}
 
 }

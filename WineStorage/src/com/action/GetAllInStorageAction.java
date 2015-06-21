@@ -101,9 +101,12 @@ public class GetAllInStorageAction extends ActionSupport implements RequestAware
         while(inStorageIterator.hasNext()){
             ComInStorage inStorage = inStorageIterator.next();
             UserService userService = new UserService();
+            ItemService itemService = new ItemService();
+            ComItem comItem = itemService.getItemById(inStorage.getComItem().getId());
             ComUser comUser = userService.getUserById(inStorage.getComUserByKeyboarder().getId());
             inStorageJson += "{\"id\":\"" + inStorage.getId() + "\"," +
                         "\"itemId\":\"" + inStorage.getComItem().getId() + "\"," +
+                        "\"itemName\":\"" + comItem.getName() + "\"," +
                         "\"count\":\"" + inStorage.getCount() + "\"," +
                         "\"place\":\"" + inStorage.getSupplyPlace() + "\"," +
                         "\"agent\":\"" + inStorage.getAgent() + "\"," +
@@ -119,7 +122,7 @@ public class GetAllInStorageAction extends ActionSupport implements RequestAware
                 }else{
                     name = inStorage.getComUserByApproval().getName();
                 }
-                inStorageJson += inStorage.getAgent() + "\"," +
+                inStorageJson += name + "\"," +
                             "\"approvalTime\":\"" + df.format(inStorage.getApprovalDatetime()) + "\",";
             }else{
                 inStorageJson += "\",\"approvalTime\":\"\",";

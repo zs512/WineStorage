@@ -21,6 +21,19 @@ public class LoginAction extends ActionSupport implements RequestAware, SessionA
 
     private String name;
     private String password;
+
+    public Map<String, Object> getRequest() {
+        return request;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public Map<String, Object> getApplication() {
+        return application;
+    }
+
     public String getName() {
         return name;
     }

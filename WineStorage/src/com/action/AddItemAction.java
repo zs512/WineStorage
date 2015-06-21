@@ -24,6 +24,18 @@ public class AddItemAction extends ActionSupport implements RequestAware, Sessio
     private String storage;
     private String barcode;
 
+    public Map<String, Object> getRequest() {
+        return request;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public Map<String, Object> getApplication() {
+        return application;
+    }
+
     public String getBarcode() {
         return barcode;
     }

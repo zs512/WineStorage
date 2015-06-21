@@ -25,6 +25,18 @@ public class EditItemAction extends ActionSupport implements RequestAware, Sessi
     private String standard;
     private String storage;
 
+    public Map<String, Object> getRequest() {
+        return request;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public Map<String, Object> getApplication() {
+        return application;
+    }
+
     public String getBarcode() {
         return barcode;
     }

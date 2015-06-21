@@ -38,6 +38,7 @@ public class ComInStorageDAO {
 	public static final String AGENT = "agent";
 	public static final String STATUS = "status";
 	public static final String REMARK = "remark";
+	public static final String NATURE_STATUS = "natureStatus";
 
 	private SessionFactory sessionFactory;
 
@@ -135,6 +136,10 @@ public class ComInStorageDAO {
 
 	public List<ComInStorage> findByRemark(Object remark) {
 		return findByProperty(REMARK, remark);
+	}
+
+	public List<ComInStorage> findByNatureStatus(Object natureStatus) {
+		return findByProperty(NATURE_STATUS, natureStatus);
 	}
 
 	public List findAll() {

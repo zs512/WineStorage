@@ -22,6 +22,18 @@ public class DelSelectedItemAction extends ActionSupport implements RequestAware
 
     List<String> idList;
 
+    public Map<String, Object> getRequest() {
+        return request;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public Map<String, Object> getApplication() {
+        return application;
+    }
+
     private String result;
 
     public String getResult() {

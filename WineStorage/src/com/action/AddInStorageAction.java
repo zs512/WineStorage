@@ -27,6 +27,18 @@ public class AddInStorageAction extends ActionSupport implements RequestAware, S
     private String agent;
     private String remark;
 
+    public Map<String, Object> getRequest() {
+        return request;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public Map<String, Object> getApplication() {
+        return application;
+    }
+
     public String getItemId() {
         return itemId;
     }

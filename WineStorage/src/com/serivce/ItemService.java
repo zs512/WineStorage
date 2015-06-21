@@ -140,4 +140,9 @@ public class ItemService extends PublicService{
         return false;
     }
 
+    public ComItem getItemById(String id){
+        if(id == null) return null;
+        return comItemDAO.findById(id);
+    }
+
 }

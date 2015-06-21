@@ -781,28 +781,8 @@ function refrashItem(){
               i = i + 1;
             }
             var itemHtml = '';
-            if(itemsArray.length > 0){
-              itemHtml += '<tr>';
-              itemHtml += '<td><input type="checkbox" name="itemId" value="' + itemsArray[0][0] + '"></td>';
-              itemHtml += '<td>' + (0 + 1) + '</td>';
-              itemHtml += '<td>' + itemsArray[0][4] + '</td>';
-              itemHtml += '<td>' + itemsArray[0][1] + '</td>';
-              itemHtml += '<td>' + itemsArray[0][2] + '</td>';
-              itemHtml += '<td>' + itemsArray[0][3] + '</td>';
-              itemHtml += '<td>' + itemsArray[0][5] + '</td>';
-              itemHtml += '<td><div class="btn-group">';
-              itemHtml += '<a id="editButton1" rel="popover" data-content="im data" class="btn btn-warning" onclick="editItem(\'' + itemsArray[0][0] + '\',';
-              itemHtml += '\'' + itemsArray[0][4] + '\',';
-              itemHtml += '\'' + itemsArray[0][1] + '\',';
-              itemHtml += '\'' + itemsArray[0][2] + '\',';
-              itemHtml += '\'' + itemsArray[0][3] + '\',';
-              itemHtml += '\'' + itemsArray[0][5] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
-              itemHtml += '<a class="btn btn-danger" onclick="delItem(\'' + itemsArray[0][0] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
 
-            }
-
-
-            for(var m = 1; m < itemsArray.length; m++){
+            for(var m = 0; m < itemsArray.length; m++){
 
               itemHtml += '<tr>';
               itemHtml += '<td><input type="checkbox" name="itemId" value="' + itemsArray[m][0] + '"></td>';
@@ -813,16 +793,30 @@ function refrashItem(){
               itemHtml += '<td>' + itemsArray[m][3] + '</td>';
               itemHtml += '<td>' + itemsArray[m][5] + '</td>';
               itemHtml += '<td><div class="btn-group">';
-              itemHtml += '<a class="btn btn-warning" onclick="editItem(\'' + itemsArray[m][0] + '\',';
+              itemHtml += '<a class="btn btn-warning pop" data-toggle="popover" data-placement="left" data-content="编辑" onclick="editItem(\'' + itemsArray[m][0] + '\',';
               itemHtml += '\'' + itemsArray[m][4] + '\',';
               itemHtml += '\'' + itemsArray[m][1] + '\',';
               itemHtml += '\'' + itemsArray[m][2] + '\',';
               itemHtml += '\'' + itemsArray[m][3] + '\',';
               itemHtml += '\'' + itemsArray[m][5] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
-              itemHtml += '<a class="btn btn-danger" onclick="delItem(\'' + itemsArray[m][0] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
+              itemHtml += '<a class="btn btn-danger pop" data-toggle="popover" data-placement="left" data-content="删除"  onclick="delItem(\'' + itemsArray[m][0] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
             }
             document.getElementById("itemBody").innerHTML = itemHtml;
-
+            $(".pop").popover({ trigger: "manual" , html: true, animation:false})
+                    .on("mouseenter", function () {
+                      var _this = this;
+                      $(this).popover("show");
+                      $(".popover").on("mouseleave", function () {
+                        $(_this).popover('hide');
+                      });
+                    }).on("mouseleave", function () {
+                      var _this = this;
+                      setTimeout(function () {
+                        if (!$(".popover:hover").length) {
+                          $(_this).popover("hide");
+                        }
+                      }, 1);
+                    });
           }
   );
 }
