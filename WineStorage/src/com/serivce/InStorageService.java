@@ -37,6 +37,21 @@ public class InStorageService extends PublicService{
         return checkInStorageIsExistent(comInStorageId);
     }
 
+    private boolean checkBeforeEdit(ComInStorage comInStorage){
+        if(comInStorage == null || comInStorage.getId() == null) return false;
+        ComInStorage inStorageTmp = comInStorageDAO.findById(comInStorage.getId());
+
+        return (inStorageTmp != null &&
+                inStorageTmp.getId() != null &&
+                !inStorageTmp.getStatus().equals(2) &&
+                checkItemIsExistent(comInStorage.getComItem().getId()) &&
+                checkCountIsOk(comInStorage.getCount()) &&
+                checkSupplyPlaceIsOk(comInStorage.getSupplyPlace()) &&
+                checkAgent(comInStorage.getAgent()) &&
+                checkKeyboarderIsOk(comInStorage.getComUserByKeyboarder().getId()) &&
+                checkRemark(comInStorage.getRemark()));
+    }
+
     private boolean checkInStorageIsExistent(String id) {
         if(id == null) return false;
         ComInStorage comInStorage = comInStorageDAO.findById(id);
@@ -89,6 +104,16 @@ public class InStorageService extends PublicService{
         if(checkBeforeDel(id)){
             ComInStorage comInStorage = comInStorageDAO.findById(id);
             comInStorage.setNatureStatus(1);
+            comInStorageDAO.attachDirty(comInStorage);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean editInStorage(ComInStorage comInStorage){
+        if(checkBeforeEdit(comInStorage)){
+            comInStorage.setStatus(0);
             comInStorageDAO.attachDirty(comInStorage);
             return true;
         }else{

@@ -2,6 +2,8 @@ package com.test;
 
 import com.dao.ComItemDAO;
 import com.domain.ComItem;
+import com.domain.ComUser;
+import com.serivce.UserService;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -18,9 +20,11 @@ public class TestMain {
 //        comUser.setLoginName("ruanqx");
 //        comUser.setName("ruanqixiang");
 //        comUser.setPassword(".");
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(df.format(timestamp));
-
+        ComUser user = new ComUser();
+        user.setLoginName("ruanqx");
+        user.setPassword(".");
+        user.setName("ruanqixiang");
+        UserService userService = new UserService();
+        userService.signUpSuccess(user);
     }
 }

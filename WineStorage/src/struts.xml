@@ -88,5 +88,8 @@
         <action name="delInStorages" class="com.action.DelInStoragesAction">
             <result name="success">/inStorage.jsp</result>
         </action>
+        <action name="editInStorage" class="com.action.EditInStorageAction">
+            <result name="success">/inStorage.jsp</result>
+        </action>
     </package>
 </struts>

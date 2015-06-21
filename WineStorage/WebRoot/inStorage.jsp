@@ -263,7 +263,7 @@
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" placeholder="">
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu pull-right" role="menu" id="cropdownItemList">
+                        <ul class="dropdown-menu pull-right" role="menu" id="dropdownItemListForAdd">
 
                         </ul>
                       </div>
@@ -310,50 +310,68 @@
         </div>
       </div>
 
-      <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+      <div class="modal fade" id="editInStorage" tabindex="-1" role="dialog" aria-labelledby="editInStorageModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title text-center" id="editItemTitle">修改商品</h4>
+              <h4 class="modal-title text-center" id="editInStorageTitle">修改入库单</h4>
             </div>
 
-            <form class="form-validate form-horizontal" id="editItem_form" method="post" action="<%=request.getContextPath()%>/editItem.action">
+            <form class="form-validate form-horizontal" id="editInStorage_form" method="post" action="<%=request.getContextPath()%>/editInStorage.action">
               <input type="hidden" id="editid" name="id"/>
               <div class="modal-body">
 
+
                 <div class="form-group">
-                  <label for="editbarcode" class="control-label col-lg-2">条形码<span class="required">*</span></label>
+                  <label for="editItemId" class="control-label col-lg-2">酒类<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="editbarcode" name="barcode" type="text"/>
+                    <div class="input-group">
+                      <input class="form-control" id="editItemId" name="itemId" type="hidden"/>
+                      <input class="form-control" id="editItemName" type="text" readonly/>
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" placeholder="">
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu" id="dropdownItemListForEdit">
+
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="editname" class="control-label col-lg-2">名称<span class="required">*</span></label>
+                  <label for="editcount" class="control-label col-lg-2">入库数量<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="editname" name="name" type="text"/>
+                    <input class="form-control" id="editcount" name="count" type="text"/>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="editvariety" class="control-label col-lg-2">品种<span class="required">*</span></label>
+                  <label for="editplace" class="control-label col-lg-2">来源地<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="editvariety" name="variety" type="text"/>
+                    <input class="form-control" id="editplace" name="place" type="text"/>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="editstandard" class="control-label col-lg-2">规格<span class="required">*</span></label>
+                  <label for="editagent" class="control-label col-lg-2">经办人<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="editstandard" name="standard" type="text"/>
+                    <input class="form-control" id="editagent" name="agent" type="text"/>
                   </div>
                 </div>
 
-                <input type="hidden" id="editstorage" name="storage" value="">
+                <div class="form-group">
+                  <label for="editremark" class="control-label col-lg-2">备注</label>
+                  <div class="col-lg-9">
+                    <input class="form-control" id="editremark" name="remark" type="text"/>
+                  </div>
+                </div>
               </div>
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
                 <button type="submit" class="btn btn-primary">修改</button>
@@ -451,17 +469,23 @@
     document.delInStoragesForm.submit();
   }
 
+  function editInStorage(id, itemId, itemName, count, place, agent, remark, status){
+    if(status == "2"){
+      return;
+    }
+    document.getElementById("editid").value = id;
+    document.getElementById("editItemId").value = itemId;
+    document.getElementById("editItemName").value = itemName;
+    document.getElementById("editcount").value = count;
+    document.getElementById("editplace").value = place;
+    document.getElementById("editagent").value = agent;
+    document.getElementById("editremark").value = remark;
+
+    $("#editInStorage").modal("show");
+  }
+
   function confirmDelItem(i){
 
-  }
-  function editItem(id, barcode, name, variety, standard, storage){
-    document.getElementById("editid").value=id;
-    document.getElementById("editbarcode").value=barcode;
-    document.getElementById("editname").value=name;
-    document.getElementById("editvariety").value=variety;
-    document.getElementById("editstandard").value=standard;
-    document.getElementById("editstorage").value=storage;
-    $("#editItem").modal("show");
   }
 
   $(function(){
@@ -549,9 +573,14 @@
     });
   });
 
-  function setInputValue(id, name){
+  function setInputValueForAdd(id, name){
     document.getElementById("addItemId").value = id;
     document.getElementById("addItemName").value = name;
+  }
+
+  function setInputValueForEdit(id, name){
+    document.getElementById("editItemId").value = id;
+    document.getElementById("editItemName").value = name;
   }
 
   function replaceModelSelectHtml(){
@@ -559,15 +588,28 @@
     for(var i = 0; i < items.length; i++){
       var content = '';
       item = items[i];
-      content += '<strong>条形码:</strong> ' + item["barcode"] + '<br/>' +
+      content += '<strong>条形码: </strong>' + item["barcode"] + '<br/>' +
                  '<strong>名称: </strong>' + item["name"] + '<br/>'+
                  '<strong>品种: </strong>' + item["variety"] + '<br/>'+
                  '<strong>规格: </strong>' + item["standard"] + '<br/>'+
                  '<strong>库存: </strong>' + item["storage"] + '<br/>';
-      Html+='<li><a href="javascript:setInputValue(\'' + item["id"] + '\',\'' + item["name"] + '\')" class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '" data-original-title="" title="">  ' + item["name"] + '</a></li>';
+      Html+='<li><a href="javascript:setInputValueForAdd(\'' + item["id"] + '\',\'' + item["name"] + '\')" class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '" data-original-title="" title="">  ' + item["name"] + '</a></li>';
     }
-    document.getElementById("cropdownItemList").innerHTML=Html;
+    document.getElementById("dropdownItemListForAdd").innerHTML=Html;
 
+    Html = '';
+    for(var i = 0; i < items.length; i++){
+      var content = '';
+      item = items[i];
+      content += '<strong>条形码: </strong>' + item["barcode"] + '<br/>' +
+              '<strong>名称: </strong>' + item["name"] + '<br/>'+
+              '<strong>品种: </strong>' + item["variety"] + '<br/>'+
+              '<strong>规格: </strong>' + item["standard"] + '<br/>'+
+              '<strong>库存: </strong>' + item["storage"] + '<br/>';
+      Html+='<li><a href="javascript:setInputValueForEdit(\'' + item["id"] + '\',\'' + item["name"] + '\')" class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '" data-original-title="" title="">  ' + item["name"] + '</a></li>';
+    }
+
+    document.getElementById("dropdownItemListForEdit").innerHTML=Html;
     Html = '';
     var index = 1;
     for(var i = 0; i < inStorages.length; i++){
@@ -592,7 +634,15 @@
         Html += '<td>已录入</td>'
       }
       Html += '<td><div class="btn-group">';
-      Html += '<a class="btn btn-warning pop" data-toggle="popover" data-placement="left" data-content="编辑"><i class="icon_pencil-edit_alt"></i></a>';
+      Html += '<a class="btn btn-warning pop" data-toggle="popover" data-placement="left" data-content="编辑" onclick="editInStorage(\'' +
+              inStorage["id"] + '\',\'' +
+              inStorage["itemId"] + '\',\'' +
+              inStorage["itemName"] + '\',\'' +
+              inStorage["count"] + '\',\'' +
+              inStorage["place"] + '\',\'' +
+              inStorage["agent"] + '\',\'' +
+              inStorage["remark"] + '\',\'' +
+              inStorage["status"] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
       Html += '<a class="btn btn-danger pop" data-toggle="popover" data-placement="left" data-content="删除" onclick="delInStorage(\'' + inStorage["id"] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
     }
     document.getElementById("inStorageList").innerHTML=Html;
