@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: ruanqx
-  Date: 2015/6/19
-  Time: 15:22
+  User: ruan
+  Date: 6/22/15
+  Time: 11:33 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -185,10 +185,10 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <h3 class="page-header"><i class="fa fa-laptop"></i> 入库管理</h3>
+          <h3 class="page-header"><i class="fa fa-laptop"></i> 出库管理</h3>
           <ol class="breadcrumb">
             <li><i class="fa fa-home"></i><a href="index.jsp"> 主页</a></li>
-            <li><i class="fa fa-laptop"></i>入库管理</li>
+            <li><i class="fa fa-laptop"></i>出库管理</li>
           </ol>
         </div>
       </div>
@@ -204,8 +204,8 @@
               <div class="panel-actions">
                 <div class="btn-group">
                   <button type="button" id="refreshInStorage" class="btn btn-success">刷新</button>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">添加</button>
-                  <button type="button" class="btn btn-danger" onclick="delInStorages()">删除</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOutStorage">添加</button>
+                  <button type="button" class="btn btn-danger" onclick="delOutStorages()">删除</button>
                 </div>
               </div>
             </div>
@@ -218,7 +218,7 @@
                     <th>选择</th>
                     <th>序号</th>
                     <th>商品名称</th>
-                    <th>入库数量</th>
+                    <th>出库数量</th>
                     <th>经办人</th>
                     <th>录入人员</th>
                     <th>录入时间</th>
@@ -228,7 +228,7 @@
                     <th>操作</th>
                   </tr>
                   </thead>
-                  <tbody id="inStorageList">
+                  <tbody id="outStorageList">
 
                   </tbody>
                 </table>
@@ -240,17 +240,17 @@
         </div>
       </div><br><br>
 
-      <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+      <div class="modal fade" id="addOutStorage" tabindex="-1" role="dialog" aria-labelledby="addOutStorageModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title text-center" id="addInStorageTitle">入库录入</h4>
+              <h4 class="modal-title text-center" id="addOutStorageTitle">出库录入</h4>
             </div>
 
-            <form class="form-validate form-horizontal" id="addInStorage_form" method="post" action="<%=request.getContextPath()%>/addInStorage.action">
+            <form class="form-validate form-horizontal" id="addOutStorage_form" method="post" action="<%=request.getContextPath()%>/addOutStorage.action">
               <div class="modal-body">
 
                 <div class="form-group">
@@ -272,16 +272,16 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="addInCount" class="control-label col-lg-2">入库数量<span class="required">*</span></label>
+                  <label for="addOutCount" class="control-label col-lg-2">出库数量<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="addInCount" name="count" type="text"/>
+                    <input class="form-control" id="addOutCount" name="count" type="text"/>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="addSupplyPlace" class="control-label col-lg-2">来源地<span class="required">*</span></label>
+                  <label for="addDeliveryPlace" class="control-label col-lg-2">派送地<span class="required">*</span></label>
                   <div class="col-lg-9">
-                    <input class="form-control" id="addSupplyPlace" name="place" type="text"/>
+                    <input class="form-control" id="addDeliveryPlace" name="place" type="text"/>
                   </div>
                 </div>
 
@@ -310,17 +310,17 @@
         </div>
       </div>
 
-      <div class="modal fade" id="editInStorage" tabindex="-1" role="dialog" aria-labelledby="editInStorageModalLabel" aria-hidden="true">
+      <div class="modal fade" id="editOutStorage" tabindex="-1" role="dialog" aria-labelledby="editOutStorageModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title text-center" id="editInStorageTitle">修改入库单</h4>
+              <h4 class="modal-title text-center" id="editOutStorageTitle">修改出库单</h4>
             </div>
 
-            <form class="form-validate form-horizontal" id="editInStorage_form" method="post" action="<%=request.getContextPath()%>/editInStorage.action">
+            <form class="form-validate form-horizontal" id="editOutStorage_form" method="post" action="<%=request.getContextPath()%>/editOutStorage.action">
               <input type="hidden" id="editid" name="id"/>
               <div class="modal-body">
 
@@ -351,7 +351,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="editplace" class="control-label col-lg-2">来源地<span class="required">*</span></label>
+                  <label for="editplace" class="control-label col-lg-2">派送地<span class="required">*</span></label>
                   <div class="col-lg-9">
                     <input class="form-control" id="editplace" name="place" type="text"/>
                   </div>
@@ -427,12 +427,12 @@
   <!-- container section start -->
 </section>
 
-<form name="delInStorageForm" method="post" action="<%=request.getContextPath()%>/delInStorage.action">
+<form name="delOutStorageForm" method="post" action="<%=request.getContextPath()%>/delOutStorage.action">
   <input type="hidden" id="delId" name="id" value="123"/>
 </form>
 
-<form name="delInStoragesForm" method="post" action="<%=request.getContextPath()%>/delInStorages.action">
-  <div id="delInStoragesInput">
+<form name="delOutStoragesForm" method="post" action="<%=request.getContextPath()%>/delOutStorages.action">
+  <div id="delOutStoragesInput">
 
   </div>
 </form>
@@ -440,36 +440,36 @@
 <script type="text/javascript">
 
   var items = new Array();
-  var inStorages = new Array();
-  function delInStorage(i){
+  var outStorages = new Array();
+  function delOutStorage(i){
 
 //   $("#confirmDelItem").modal("show");
     document.getElementById("delId").value=i;
-    document.delInStorageForm.submit();
+    document.delOutStorageForm.submit();
   }
 
-  function delInStorages(){
-    var inStorageIds = document.getElementsByName("inStorageId");
+  function delOutStorages(){
+    var outStorageIds = document.getElementsByName("outStorageId");
     var ids = new Array();
     var j = 0;
-    for(var i = 0; i < inStorageIds.length; i++){
-      if(inStorageIds[i].type == "checkbox" && inStorageIds[i].checked == true){
-        ids[j++] = inStorageIds[i].value;
+    for(var i = 0; i < outStorageIds.length; i++){
+      if(outStorageIds[i].type == "checkbox" && outStorageIds[i].checked == true){
+        ids[j++] = outStorageIds[i].value;
       }
     }
     if(j == 0){
       $("#noIdWarn").modal("show");
       return;
     }
-    var delInStoragesFormInputHtml = '';
+    var delOutStoragesFormInputHtml = '';
     for(var k = 0; k < ids.length; k++){
-      delInStoragesFormInputHtml += '<input type="hidden" name="idList[' + k + ']" value="'+ ids[k] + '">';
+      delOutStoragesFormInputHtml += '<input type="hidden" name="idList[' + k + ']" value="'+ ids[k] + '">';
     }
-    document.getElementById("delInStoragesInput").innerHTML = delInStoragesFormInputHtml;
-    document.delInStoragesForm.submit();
+    document.getElementById("delOutStoragesInput").innerHTML = delOutStoragesFormInputHtml;
+    document.delOutStoragesForm.submit();
   }
 
-  function editInStorage(id, itemId, itemName, count, place, agent, remark, status){
+  function editOutStorage(id, itemId, itemName, count, place, agent, remark, status){
     if(status == "2"){
       return;
     }
@@ -481,16 +481,13 @@
     document.getElementById("editagent").value = agent;
     document.getElementById("editremark").value = remark;
 
-    $("#editInStorage").modal("show");
+    $("#editOutStorage").modal("show");
   }
 
   function confirmDelItem(i){
 
   }
 
-  $(function(){
-    $("#example").popover();
-  });
 </script>
 
 <!-- javascripts -->
@@ -589,10 +586,10 @@
       var content = '';
       item = items[i];
       content += '<strong>条形码: </strong>' + item["barcode"] + '<br/>' +
-                 '<strong>名称: </strong>' + item["name"] + '<br/>'+
-                 '<strong>品种: </strong>' + item["variety"] + '<br/>'+
-                 '<strong>规格: </strong>' + item["standard"] + '<br/>'+
-                 '<strong>库存: </strong>' + item["storage"] + '<br/>';
+              '<strong>名称: </strong>' + item["name"] + '<br/>'+
+              '<strong>品种: </strong>' + item["variety"] + '<br/>'+
+              '<strong>规格: </strong>' + item["standard"] + '<br/>'+
+              '<strong>库存: </strong>' + item["storage"] + '<br/>';
       Html+='<li><a href="javascript:setInputValueForAdd(\'' + item["id"] + '\',\'' + item["name"] + '\')" class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '" data-original-title="" title="">  ' + item["name"] + '</a></li>';
     }
     document.getElementById("dropdownItemListForAdd").innerHTML=Html;
@@ -612,40 +609,40 @@
     document.getElementById("dropdownItemListForEdit").innerHTML=Html;
     Html = '';
     var index = 1;
-    for(var i = 0; i < inStorages.length; i++){
-      inStorage = inStorages[i];
-      content = '<strong>来源地:</strong> ' + inStorage["place"] + '<br/>';
-      content += '<strong>备注:</strong> ' + inStorage["remark"] + '<br/>';
+    for(var i = 0; i < outStorages.length; i++){
+      var outStorage = outStorages[i];
+      content = '<strong>来源地:</strong> ' + outStorage["place"] + '<br/>';
+      content += '<strong>备注:</strong> ' + outStorage["remark"] + '<br/>';
       Html += '<tr>' +
-              '<td><input type="checkbox" name="inStorageId" value="' + inStorage["id"] + '"></td>' +
+              '<td><input type="checkbox" name="outStorageId" value="' + outStorage["id"] + '"></td>' +
               '<td>' + (index++) + '</td>' +
-              '<td><a class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '">' + inStorage["itemName"] + '</a></td>' +
-              '<td>' + inStorage["count"] + '</td>' +
-              '<td>' + inStorage["agent"] + '</td>' +
-              '<td>' + inStorage["keyboarder"] + '</td>' +
-              '<td>' + inStorage["keyboarderTime"] + '</td>' +
-              '<td>' + inStorage["approval"] + '</td>' +
-              '<td>' + inStorage["approvalTime"] + '</td>';
-      if(inStorage["status"] == "0"){
+              '<td><a class="pop" data-toggle="popover" data-placement="left" data-content="' + content + '">' + outStorage["itemName"] + '</a></td>' +
+              '<td>' + outStorage["count"] + '</td>' +
+              '<td>' + outStorage["agent"] + '</td>' +
+              '<td>' + outStorage["keyboarder"] + '</td>' +
+              '<td>' + outStorage["keyboarderTime"] + '</td>' +
+              '<td>' + outStorage["approval"] + '</td>' +
+              '<td>' + outStorage["approvalTime"] + '</td>';
+      if(outStorage["status"] == "0"){
         Html += '<td>待审</td>';
-      }else if(inStorage["status"] == "1"){
+      }else if(outStorage["status"] == "1"){
         Html += '<td>未通过</td>'
       }else{
         Html += '<td>已录入</td>'
       }
       Html += '<td><div class="btn-group">';
-      Html += '<a class="btn btn-warning pop" data-toggle="popover" data-placement="left" data-content="编辑" onclick="editInStorage(\'' +
-              inStorage["id"] + '\',\'' +
-              inStorage["itemId"] + '\',\'' +
-              inStorage["itemName"] + '\',\'' +
-              inStorage["count"] + '\',\'' +
-              inStorage["place"] + '\',\'' +
-              inStorage["agent"] + '\',\'' +
-              inStorage["remark"] + '\',\'' +
-              inStorage["status"] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
-      Html += '<a class="btn btn-danger pop" data-toggle="popover" data-placement="left" data-content="删除" onclick="delInStorage(\'' + inStorage["id"] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
+      Html += '<a class="btn btn-warning pop" data-toggle="popover" data-placement="left" data-content="编辑" onclick="editOutStorage(\'' +
+              outStorage["id"] + '\',\'' +
+              outStorage["itemId"] + '\',\'' +
+              outStorage["itemName"] + '\',\'' +
+              outStorage["count"] + '\',\'' +
+              outStorage["place"] + '\',\'' +
+              outStorage["agent"] + '\',\'' +
+              outStorage["remark"] + '\',\'' +
+              outStorage["status"] + '\')"><i class="icon_pencil-edit_alt"></i></a>';
+      Html += '<a class="btn btn-danger pop" data-toggle="popover" data-placement="left" data-content="删除" onclick="delOutStorage(\'' + outStorage["id"] + '\')"><i class="icon_close_alt2"></i></a></div></td></tr>';
     }
-    document.getElementById("inStorageList").innerHTML=Html;
+    document.getElementById("outStorageList").innerHTML=Html;
 
     $(".pop").popover({ trigger: "manual" , html: true, animation:false})
             .on("mouseenter", function () {
@@ -665,17 +662,17 @@
   }
 
   function getJson(){
-    $.getJSON("<%=request.getContextPath()%>/getAllInStorage.action",
+    $.getJSON("<%=request.getContextPath()%>/getAllOutStorage.action",
             function(data){
               items.length = 0;
-              inStorages.length = 0;
+              outStorages.length = 0;
               var map = JSON.parse(data);
               var itemStr = JSON.stringify(map["items"]);
-              var inStorageStr = JSON.stringify(map["inStorages"]);
+              var outStorageStr = JSON.stringify(map["outStorages"]);
               var itemMapInside = eval("(" + itemStr + ")");
-              var inStorageMapInside = eval("(" + inStorageStr + ")");
+              var outStorageMapInside = eval("(" + outStorageStr + ")");
               var itemIndex = 0;
-              var inStorageIndex = 0;
+              var outStorageIndex = 0;
               for(var key in itemMapInside){
                 var itemMap = {};
                 for(var inKey in itemMapInside[key]){
@@ -683,18 +680,18 @@
                 }
                 items[itemIndex++] = itemMap;
               }
-              for(var key in inStorageMapInside){
-                var inStorageMap = {};
-                for(var inKey in inStorageMapInside[key]){
-                  inStorageMap[inKey] = inStorageMapInside[key][inKey].toString();
+              for(var key in outStorageMapInside){
+                var outStorageMap = {};
+                for(var inKey in outStorageMapInside[key]){
+                  outStorageMap[inKey] = outStorageMapInside[key][inKey].toString();
                 }
-                inStorages[inStorageIndex++] = inStorageMap;
+                outStorages[outStorageIndex++] = outStorageMap;
               }
               replaceModelSelectHtml();
 
-    })
+            })
   }
-  $("#refreshInStorage").click(function(){
+  $("#refreshOutStorage").click(function(){
     getJson();
   });
 
@@ -704,4 +701,3 @@
 
 </body>
 </html>
-

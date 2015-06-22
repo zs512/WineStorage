@@ -1,4 +1,4 @@
-package com.action;
+package com.action.ItemAction;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.serivce.ItemService;
@@ -14,13 +14,14 @@ import java.util.Map;
 /**
  * Created by ruanqx on 2015/6/18.
  */
-public class DelSelectedItemAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
-
+public class DelItemAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
     Map<String, Object> request;
     Map<String, Object> session;
     Map<String, Object> application;
 
-    List<String> idList;
+    private String id;
+
+    private String result;
 
     public Map<String, Object> getRequest() {
         return request;
@@ -34,8 +35,6 @@ public class DelSelectedItemAction extends ActionSupport implements RequestAware
         return application;
     }
 
-    private String result;
-
     public String getResult() {
         return result;
     }
@@ -44,12 +43,12 @@ public class DelSelectedItemAction extends ActionSupport implements RequestAware
         this.result = result;
     }
 
-    public List<String> getIdList() {
-        return idList;
+    public String getId() {
+        return id;
     }
 
-    public void setIdList(List<String> idList) {
-        this.idList = idList;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
@@ -68,15 +67,10 @@ public class DelSelectedItemAction extends ActionSupport implements RequestAware
     }
 
     @Override
-    @Transactional
     public String execute() throws Exception {
         ItemService itemService = new ItemService();
-        Iterator<String> iterator = this.idList.iterator();
-        boolean flag = true;
-        while(iterator.hasNext()){
-            flag = itemService.delItem(iterator.next());
-        }
-        if(flag) setResult("success");
+        if(itemService.delItem(id))
+            setResult("success");
         else setResult("error");
         return SUCCESS;
     }

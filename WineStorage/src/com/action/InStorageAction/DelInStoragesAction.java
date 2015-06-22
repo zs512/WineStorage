@@ -1,4 +1,4 @@
-package com.action;
+package com.action.InStorageAction;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.serivce.InStorageService;
@@ -6,26 +6,28 @@ import org.apache.struts2.interceptor.ApplicationAware;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by ruanqx on 2015/6/21.
  */
-public class DelInStorageAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
+public class DelInStoragesAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
+
     Map<String, Object> request;
     Map<String, Object> session;
     Map<String, Object> application;
 
-    private String id;
+    private List<String> idList;
 
     private String result;
 
-    public String getId() {
-        return id;
+    public List<String> getIdList() {
+        return idList;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdList(List<String> idList) {
+        this.idList = idList;
     }
 
     public String getResult() {
@@ -66,12 +68,11 @@ public class DelInStorageAction extends ActionSupport implements RequestAware, S
     @Override
     public String execute() throws Exception {
         InStorageService inStorageService = new InStorageService();
-        if(inStorageService.delInStorage(id)){
+        if(inStorageService.delInStorages(idList)){
             setResult("success");
         }else{
-            setResult("error");
+            setResult("fail");
         }
         return SUCCESS;
-
     }
 }

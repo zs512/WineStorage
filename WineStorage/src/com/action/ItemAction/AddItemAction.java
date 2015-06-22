@@ -1,4 +1,4 @@
-package com.action;
+package com.action.ItemAction;
 
 import com.domain.ComItem;
 import com.opensymphony.xwork2.ActionSupport;
@@ -10,20 +10,19 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.util.Map;
 
 /**
- * Created by ruanqx on 2015/6/18.
+ * Created by ruanqx on 2015/6/16.
  */
-public class EditItemAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
+public class AddItemAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware{
 
     Map<String, Object> request;
     Map<String, Object> session;
     Map<String, Object> application;
 
-    private String id;
-    private String barcode;
     private String name;
     private String variety;
     private String standard;
     private String storage;
+    private String barcode;
 
     public Map<String, Object> getRequest() {
         return request;
@@ -43,13 +42,6 @@ public class EditItemAction extends ActionSupport implements RequestAware, Sessi
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
-    }
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -101,16 +93,17 @@ public class EditItemAction extends ActionSupport implements RequestAware, Sessi
 
     @Override
     public String execute() throws Exception {
-        ComItem comItem = new ComItem();
-        comItem.setId(getId());
-        comItem.setBarcode(getBarcode());
-        comItem.setName(getName());
-        comItem.setVariety(getVariety());
-        comItem.setStandard(getStandard());
-        comItem.setStorage(Integer.valueOf(getStorage()));
-        comItem.setStatus(0);
+        ComItem item = new ComItem();
+        item.setBarcode(barcode);
+        item.setName(name);
+        item.setVariety(variety);
+        item.setStandard(standard);
+        item.setStorage(0);
         ItemService itemService = new ItemService();
-        itemService.editItem(comItem);
-        return SUCCESS;
+        if(itemService.addItem(item)){
+            return "success";
+        }else{
+            return "fail";
+        }
     }
 }

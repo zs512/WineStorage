@@ -33,12 +33,15 @@
         <action name="inStorageManage">
             <result>/inStorage.jsp</result>
         </action>
+        <action name="outStorageManage">
+            <result>/outStorage.jsp</result>
+        </action>
     </package>
 
 
     <package name="login" extends="struts-default">
         <default-interceptor-ref name="defaultStack"/>
-        <action name="login" class="com.action.LoginAction">
+        <action name="login" class="com.action.UserAction.LoginAction">
             <result name="loginSuccess">/index.jsp</result>
             <result name="loginFail">/login.jsp</result>
         </action>
@@ -46,50 +49,72 @@
 
     <package name="ItemManage" extends="json-default">
         <default-interceptor-ref name="defaultStack"/>
-        <action name="addItem" class="com.action.AddItemAction">
+        <action name="addItem" class="com.action.ItemAction.AddItemAction">
             <result name="success">/itemManage.jsp</result>
             <result name="fail">/itemManage.jsp</result>
         </action>
-        <action name="getAllItem" class="com.action.GetAllItemAction">
+        <action name="getAllItem" class="com.action.ItemAction.GetAllItemAction">
             <result name="success" type="json">
                 <param name="root">result</param>
             </result>
         </action>
-        <action name="delSelectItem" class="com.action.DelSelectedItemAction">
+        <action name="delSelectItem" class="com.action.ItemAction.DelSelectedItemAction">
             <result name="success" type="json">
                 <param name="root">result</param>
             </result>
         </action>
-        <action name="delItem" class="com.action.DelItemAction">
+        <action name="delItem" class="com.action.ItemAction.DelItemAction">
             <result name="success">/itemManage.jsp</result>
         </action>
-        <action name="editItem" class="com.action.EditItemAction">
+        <action name="editItem" class="com.action.ItemAction.EditItemAction">
             <result name="success">/itemManage.jsp</result>
         </action>
-        <action name="delItems" class="com.action.DelItemsAction">
+        <action name="delItems" class="com.action.ItemAction.DelItemsAction">
             <result name="success">/itemManage.jsp</result>
         </action>
     </package>
 
     <package name="InStorageManage" extends="json-default">
         <default-interceptor-ref name="defaultStack"/>
-        <action name="addInStorage" class="com.action.AddInStorageAction">
+        <action name="addInStorage" class="com.action.InStorageAction.AddInStorageAction">
             <result name="success">/inStorage.jsp</result>
             <result name="error">/inStorage.jsp</result>
         </action>
-        <action name="getAllInStorage" class="com.action.GetAllInStorageAction">
+        <action name="getAllInStorage" class="com.action.InStorageAction.GetAllInStorageAction">
             <result type="json">
                 <param name="root">resultJson</param>
             </result>
         </action>
-        <action name="delInStorage" class="com.action.DelInStorageAction">
+        <action name="delInStorage" class="com.action.InStorageAction.DelInStorageAction">
             <result name="success">/inStorage.jsp</result>
         </action>
-        <action name="delInStorages" class="com.action.DelInStoragesAction">
+        <action name="delInStorages" class="com.action.InStorageAction.DelInStoragesAction">
             <result name="success">/inStorage.jsp</result>
         </action>
-        <action name="editInStorage" class="com.action.EditInStorageAction">
+        <action name="editInStorage" class="com.action.InStorageAction.EditInStorageAction">
             <result name="success">/inStorage.jsp</result>
+        </action>
+    </package>
+
+    <package name="OutStorageManage" extends="json-default">
+        <default-interceptor-ref name="defaultStack"/>
+        <action name="addOutStorage" class="com.action.OutStorageAction.AddOutStorageAction">
+            <result name="success">/outStorage.jsp</result>
+            <result name="error">/outStorage.jsp</result>
+        </action>
+        <action name="getAllOutStorage" class="com.action.OutStorageAction.GetAllOutStorageAction">
+            <result type="json">
+                <param name="root">resultJson</param>
+            </result>
+        </action>
+        <action name="delOutStorage" class="com.action.OutStorageAction.DelOutStorageAction">
+            <result name="success">/outStorage.jsp</result>
+        </action>
+        <action name="delOutStorages" class="com.action.OutStorageAction.DelOutStoragesAction">
+            <result name="success">/outStorage.jsp</result>
+        </action>
+        <action name="editOutStorage" class="com.action.OutStorageAction.EditOutStorageAction">
+            <result name="success">/outStorage.jsp</result>
         </action>
     </package>
 </struts>

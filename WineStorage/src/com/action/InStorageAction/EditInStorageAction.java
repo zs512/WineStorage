@@ -1,4 +1,4 @@
-package com.action;
+package com.action.InStorageAction;
 
 import com.domain.ComInStorage;
 import com.domain.ComItem;
@@ -13,30 +13,35 @@ import java.sql.Timestamp;
 import java.util.Map;
 
 /**
- * Created by ruanqx on 2015/6/20.
+ * Created by ruan on 6/22/15.
  */
-public class AddInStorageAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
+public class EditInStorageAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
 
     Map<String, Object> request;
     Map<String, Object> session;
     Map<String, Object> application;
 
+    private String id;
     private String itemId;
     private String count;
-    private String place;
     private String agent;
     private String remark;
+    private String place;
 
-    public Map<String, Object> getRequest() {
-        return request;
+    public String getPlace() {
+        return place;
     }
 
-    public Map<String, Object> getSession() {
-        return session;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
-    public Map<String, Object> getApplication() {
-        return application;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getItemId() {
@@ -55,14 +60,6 @@ public class AddInStorageAction extends ActionSupport implements RequestAware, S
         this.count = count;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
     public String getAgent() {
         return agent;
     }
@@ -79,19 +76,31 @@ public class AddInStorageAction extends ActionSupport implements RequestAware, S
         this.remark = remark;
     }
 
-    @Override
-    public void setApplication(Map<String, Object> map) {
-        this.application = map;
+    public Map<String, Object> getRequest() {
+        return request;
     }
 
     @Override
-    public void setRequest(Map<String, Object> map) {
-        this.request = map;
+    public void setRequest(Map<String, Object> request) {
+        this.request = request;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
     }
 
     @Override
-    public void setSession(Map<String, Object> map) {
-        this.session = map;
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
+    }
+
+    public Map<String, Object> getApplication() {
+        return application;
+    }
+
+    @Override
+    public void setApplication(Map<String, Object> application) {
+        this.application = application;
     }
 
     @Override
@@ -102,19 +111,18 @@ public class AddInStorageAction extends ActionSupport implements RequestAware, S
         comItem.setId(itemId);
         comUser.setId((String)session.get("userId"));
 
+        comItem.setId(itemId);
+        comInStorage.setId(id);
         comInStorage.setComItem(comItem);
         comInStorage.setCount(Integer.valueOf(count));
         comInStorage.setSupplyPlace(place);
         comInStorage.setAgent(agent);
+        comInStorage.setRemark(remark);
         comInStorage.setComUserByKeyboarder(comUser);
         comInStorage.setDatetime(new Timestamp(System.currentTimeMillis()));
-        comInStorage.setRemark(remark);
-
+        comInStorage.setNatureStatus(0);
         InStorageService inStorageService = new InStorageService();
-        if(inStorageService.addInStorage(comInStorage)){
-            return SUCCESS;
-        }else {
-            return ERROR;
-        }
+        inStorageService.editInStorage(comInStorage);
+        return SUCCESS;
     }
 }

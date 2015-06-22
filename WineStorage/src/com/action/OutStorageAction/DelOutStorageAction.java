@@ -1,27 +1,32 @@
-package com.action;
+package com.action.OutStorageAction;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.serivce.ItemService;
+import com.serivce.OutStorageService;
 import org.apache.struts2.interceptor.ApplicationAware;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Created by ruanqx on 2015/6/19.
+ * Created by ruanqx on 2015/6/21.
  */
-public class DelItemsAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
+public class DelOutStorageAction extends ActionSupport implements RequestAware, SessionAware, ApplicationAware {
     Map<String, Object> request;
     Map<String, Object> session;
     Map<String, Object> application;
 
-    private List<String> idList;
+    private String id;
 
     private String result;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getResult() {
         return result;
@@ -29,14 +34,6 @@ public class DelItemsAction extends ActionSupport implements RequestAware, Sessi
 
     public void setResult(String result) {
         this.result = result;
-    }
-
-    public List<String> getIdList() {
-        return idList;
-    }
-
-    public void setIdList(List<String> idList) {
-        this.idList = idList;
     }
 
     public Map<String, Object> getRequest() {
@@ -68,12 +65,13 @@ public class DelItemsAction extends ActionSupport implements RequestAware, Sessi
 
     @Override
     public String execute() throws Exception {
-        ItemService itemService = new ItemService();
-        if(itemService.delItems(idList)){
+        OutStorageService outStorageService = new OutStorageService();
+        if(outStorageService.delOutStorage(id)){
             setResult("success");
         }else{
-            setResult("fail");
+            setResult("error");
         }
         return SUCCESS;
+
     }
 }

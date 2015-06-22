@@ -1,4 +1,4 @@
-package com.action;
+package com.action.InStorageAction;
 
 import com.domain.ComInStorage;
 import com.domain.ComItem;
