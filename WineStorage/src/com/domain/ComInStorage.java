@@ -1,6 +1,9 @@
 package com.domain;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -32,6 +36,8 @@ public class ComInStorage implements java.io.Serializable {
 	private Integer status;
 	private String remark;
 	private Integer natureStatus;
+	private Set<ComApprovalInStorage> comApprovalInStorages = new HashSet<ComApprovalInStorage>(
+			0);
 
 	// Constructors
 
@@ -56,7 +62,8 @@ public class ComInStorage implements java.io.Serializable {
 	public ComInStorage(ComUser comUserByApproval, ComUser comUserByKeyboarder,
 			ComItem comItem, Integer count, String supplyPlace, String agent,
 			Timestamp datetime, Timestamp approvalDatetime, Integer status,
-			String remark, Integer natureStatus) {
+			String remark, Integer natureStatus,
+			Set<ComApprovalInStorage> comApprovalInStorages) {
 		this.comUserByApproval = comUserByApproval;
 		this.comUserByKeyboarder = comUserByKeyboarder;
 		this.comItem = comItem;
@@ -68,6 +75,7 @@ public class ComInStorage implements java.io.Serializable {
 		this.status = status;
 		this.remark = remark;
 		this.natureStatus = natureStatus;
+		this.comApprovalInStorages = comApprovalInStorages;
 	}
 
 	// Property accessors
@@ -183,6 +191,16 @@ public class ComInStorage implements java.io.Serializable {
 
 	public void setNatureStatus(Integer natureStatus) {
 		this.natureStatus = natureStatus;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comInStorage")
+	public Set<ComApprovalInStorage> getComApprovalInStorages() {
+		return this.comApprovalInStorages;
+	}
+
+	public void setComApprovalInStorages(
+			Set<ComApprovalInStorage> comApprovalInStorages) {
+		this.comApprovalInStorages = comApprovalInStorages;
 	}
 
 }

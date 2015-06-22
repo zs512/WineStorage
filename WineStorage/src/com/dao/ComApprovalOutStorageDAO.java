@@ -2,7 +2,6 @@ package com.dao;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
@@ -16,30 +15,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.domain.ComInStorage;
+import com.domain.ComApprovalOutStorage;
 
 /**
  * A data access object (DAO) providing persistence and search support for
- * ComInStorage entities. Transaction control of the save(), update() and
- * delete() operations can directly support Spring container-managed
+ * ComApprovalOutStorage entities. Transaction control of the save(), update()
+ * and delete() operations can directly support Spring container-managed
  * transactions or they can be augmented to handle user-managed Spring
  * transactions. Each of these methods provides additional information for how
  * to configure it for the desired type of transaction control.
  * 
- * @see ComInStorage
+ * @see com.domain.ComApprovalOutStorage
  * @author MyEclipse Persistence Tools
  */
 @Transactional
-public class ComInStorageDAO {
+public class ComApprovalOutStorageDAO {
 	private static final Logger log = LoggerFactory
-			.getLogger(ComInStorageDAO.class);
+			.getLogger(ComApprovalOutStorageDAO.class);
 	// property constants
-	public static final String COUNT = "count";
-	public static final String SUPPLY_PLACE = "supplyPlace";
-	public static final String AGENT = "agent";
-	public static final String STATUS = "status";
-	public static final String REMARK = "remark";
-	public static final String NATURE_STATUS = "natureStatus";
+	public static final String RESULT = "result";
 
 	private SessionFactory sessionFactory;
 
@@ -55,8 +49,8 @@ public class ComInStorageDAO {
 		// do nothing
 	}
 
-	public void save(ComInStorage transientInstance) {
-		log.debug("saving ComInStorage instance");
+	public void save(ComApprovalOutStorage transientInstance) {
+		log.debug("saving ComApprovalOutStorage instance");
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -66,8 +60,8 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public void delete(ComInStorage persistentInstance) {
-		log.debug("deleting ComInStorage instance");
+	public void delete(ComApprovalOutStorage persistentInstance) {
+		log.debug("deleting ComApprovalOutStorage instance");
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -77,11 +71,11 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public ComInStorage findById(String id) {
-		log.debug("getting ComInStorage instance with id: " + id);
+	public ComApprovalOutStorage findById(String id) {
+		log.debug("getting ComApprovalOutStorage instance with id: " + id);
 		try {
-			ComInStorage instance = (ComInStorage) getCurrentSession().get(
-					"com.domain.ComInStorage", id);
+			ComApprovalOutStorage instance = (ComApprovalOutStorage) getCurrentSession()
+					.get("com.domain.ComApprovalOutStorage", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -89,11 +83,12 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public List<ComInStorage> findByExample(ComInStorage instance) {
-		log.debug("finding ComInStorage instance by example");
+	public List<ComApprovalOutStorage> findByExample(
+			ComApprovalOutStorage instance) {
+		log.debug("finding ComApprovalOutStorage instance by example");
 		try {
-			List<ComInStorage> results = (List<ComInStorage>) getCurrentSession()
-					.createCriteria("com.domain.ComInStorage")
+			List<ComApprovalOutStorage> results = (List<ComApprovalOutStorage>) getCurrentSession()
+					.createCriteria("com.domain.ComApprovalOutStorage")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
@@ -105,10 +100,10 @@ public class ComInStorageDAO {
 	}
 
 	public List findByProperty(String propertyName, Object value) {
-		log.debug("finding ComInStorage instance with property: "
+		log.debug("finding ComApprovalOutStorage instance with property: "
 				+ propertyName + ", value: " + value);
 		try {
-			String queryString = "from ComInStorage as model where model."
+			String queryString = "from ComApprovalOutStorage as model where model."
 					+ propertyName + "= ?";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
@@ -119,34 +114,14 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public List<ComInStorage> findByCount(Object count) {
-		return findByProperty(COUNT, count);
-	}
-
-	public List<ComInStorage> findBySupplyPlace(Object supplyPlace) {
-		return findByProperty(SUPPLY_PLACE, supplyPlace);
-	}
-
-	public List<ComInStorage> findByAgent(Object agent) {
-		return findByProperty(AGENT, agent);
-	}
-
-	public List<ComInStorage> findByStatus(Object status) {
-		return findByProperty(STATUS, status);
-	}
-
-	public List<ComInStorage> findByRemark(Object remark) {
-		return findByProperty(REMARK, remark);
-	}
-
-	public List<ComInStorage> findByNatureStatus(Object natureStatus) {
-		return findByProperty(NATURE_STATUS, natureStatus);
+	public List<ComApprovalOutStorage> findByResult(Object result) {
+		return findByProperty(RESULT, result);
 	}
 
 	public List findAll() {
-		log.debug("finding all ComInStorage instances");
+		log.debug("finding all ComApprovalOutStorage instances");
 		try {
-			String queryString = "from ComInStorage";
+			String queryString = "from ComApprovalOutStorage";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			return queryObject.list();
 		} catch (RuntimeException re) {
@@ -155,11 +130,11 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public ComInStorage merge(ComInStorage detachedInstance) {
-		log.debug("merging ComInStorage instance");
+	public ComApprovalOutStorage merge(ComApprovalOutStorage detachedInstance) {
+		log.debug("merging ComApprovalOutStorage instance");
 		try {
-			ComInStorage result = (ComInStorage) getCurrentSession().merge(
-					detachedInstance);
+			ComApprovalOutStorage result = (ComApprovalOutStorage) getCurrentSession()
+					.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -168,8 +143,8 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public void attachDirty(ComInStorage instance) {
-		log.debug("attaching dirty ComInStorage instance");
+	public void attachDirty(ComApprovalOutStorage instance) {
+		log.debug("attaching dirty ComApprovalOutStorage instance");
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -179,8 +154,8 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public void attachClean(ComInStorage instance) {
-		log.debug("attaching clean ComInStorage instance");
+	public void attachClean(ComApprovalOutStorage instance) {
+		log.debug("attaching clean ComApprovalOutStorage instance");
 		try {
 			getCurrentSession().buildLockRequest(LockOptions.NONE).lock(
 					instance);
@@ -191,8 +166,9 @@ public class ComInStorageDAO {
 		}
 	}
 
-	public static ComInStorageDAO getFromApplicationContext(
+	public static ComApprovalOutStorageDAO getFromApplicationContext(
 			ApplicationContext ctx) {
-		return (ComInStorageDAO) ctx.getBean("ComInStorageDAO");
+		return (ComApprovalOutStorageDAO) ctx
+				.getBean("ComApprovalOutStorageDAO");
 	}
 }

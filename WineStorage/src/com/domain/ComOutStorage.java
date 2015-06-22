@@ -1,6 +1,9 @@
 package com.domain;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -32,6 +36,8 @@ public class ComOutStorage implements java.io.Serializable {
 	private Integer status;
 	private String remark;
 	private Integer natureStatus;
+	private Set<ComApprovalOutStorage> comApprovalOutStorages = new HashSet<ComApprovalOutStorage>(
+			0);
 
 	// Constructors
 
@@ -57,7 +63,8 @@ public class ComOutStorage implements java.io.Serializable {
 			ComUser comUserByKeyboarder, ComItem comItem, Integer count,
 			String deliveryPlace, String agent, Timestamp datetime,
 			Timestamp approvalDatetime, Integer status, String remark,
-			Integer natureStatus) {
+			Integer natureStatus,
+			Set<ComApprovalOutStorage> comApprovalOutStorages) {
 		this.comUserByApproval = comUserByApproval;
 		this.comUserByKeyboarder = comUserByKeyboarder;
 		this.comItem = comItem;
@@ -69,6 +76,7 @@ public class ComOutStorage implements java.io.Serializable {
 		this.status = status;
 		this.remark = remark;
 		this.natureStatus = natureStatus;
+		this.comApprovalOutStorages = comApprovalOutStorages;
 	}
 
 	// Property accessors
@@ -184,6 +192,16 @@ public class ComOutStorage implements java.io.Serializable {
 
 	public void setNatureStatus(Integer natureStatus) {
 		this.natureStatus = natureStatus;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comOutStorage")
+	public Set<ComApprovalOutStorage> getComApprovalOutStorages() {
+		return this.comApprovalOutStorages;
+	}
+
+	public void setComApprovalOutStorages(
+			Set<ComApprovalOutStorage> comApprovalOutStorages) {
+		this.comApprovalOutStorages = comApprovalOutStorages;
 	}
 
 }

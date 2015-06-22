@@ -26,12 +26,16 @@ public class ComUser implements java.io.Serializable {
 	private String password;
 	private String name;
 	private Integer status;
+	private Set<ComApprovalInStorage> comApprovalInStorages = new HashSet<ComApprovalInStorage>(
+			0);
 	private Set<ComUserRight> comUserRights = new HashSet<ComUserRight>(0);
 	private Set<ComInStorage> comInStoragesForApproval = new HashSet<ComInStorage>(
 			0);
 	private Set<ComInStorage> comInStoragesForKeyboarder = new HashSet<ComInStorage>(
 			0);
 	private Set<ComOutStorage> comOutStoragesForKeyboarder = new HashSet<ComOutStorage>(
+			0);
+	private Set<ComApprovalOutStorage> comApprovalOutStorages = new HashSet<ComApprovalOutStorage>(
 			0);
 	private Set<ComOutStorage> comOutStoragesForApproval = new HashSet<ComOutStorage>(
 			0);
@@ -51,19 +55,23 @@ public class ComUser implements java.io.Serializable {
 
 	/** full constructor */
 	public ComUser(String loginName, String password, String name,
-			Integer status, Set<ComUserRight> comUserRights,
+			Integer status, Set<ComApprovalInStorage> comApprovalInStorages,
+			Set<ComUserRight> comUserRights,
 			Set<ComInStorage> comInStoragesForApproval,
 			Set<ComInStorage> comInStoragesForKeyboarder,
 			Set<ComOutStorage> comOutStoragesForKeyboarder,
+			Set<ComApprovalOutStorage> comApprovalOutStorages,
 			Set<ComOutStorage> comOutStoragesForApproval) {
 		this.loginName = loginName;
 		this.password = password;
 		this.name = name;
 		this.status = status;
+		this.comApprovalInStorages = comApprovalInStorages;
 		this.comUserRights = comUserRights;
 		this.comInStoragesForApproval = comInStoragesForApproval;
 		this.comInStoragesForKeyboarder = comInStoragesForKeyboarder;
 		this.comOutStoragesForKeyboarder = comOutStoragesForKeyboarder;
+		this.comApprovalOutStorages = comApprovalOutStorages;
 		this.comOutStoragesForApproval = comOutStoragesForApproval;
 	}
 
@@ -117,6 +125,16 @@ public class ComUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
+	public Set<ComApprovalInStorage> getComApprovalInStorages() {
+		return this.comApprovalInStorages;
+	}
+
+	public void setComApprovalInStorages(
+			Set<ComApprovalInStorage> comApprovalInStorages) {
+		this.comApprovalInStorages = comApprovalInStorages;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
 	public Set<ComUserRight> getComUserRights() {
 		return this.comUserRights;
 	}
@@ -153,6 +171,16 @@ public class ComUser implements java.io.Serializable {
 	public void setComOutStoragesForKeyboarder(
 			Set<ComOutStorage> comOutStoragesForKeyboarder) {
 		this.comOutStoragesForKeyboarder = comOutStoragesForKeyboarder;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
+	public Set<ComApprovalOutStorage> getComApprovalOutStorages() {
+		return this.comApprovalOutStorages;
+	}
+
+	public void setComApprovalOutStorages(
+			Set<ComApprovalOutStorage> comApprovalOutStorages) {
+		this.comApprovalOutStorages = comApprovalOutStorages;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUserByApproval")
