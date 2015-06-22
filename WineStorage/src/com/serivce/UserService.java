@@ -18,6 +18,14 @@ public class UserService{
 
     ComUser user;
 
+    public ComUser getUser() {
+        return user;
+    }
+
+    public void setUser(ComUser user) {
+        this.user = user;
+    }
+
     private boolean checkLoginNameIsExistent(String loginName){
         if(loginName == null) return false;
         ComUser user = new ComUser();
@@ -36,7 +44,7 @@ public class UserService{
         user = new ComUser();
     }
 
-    public String loginSuccess(ComUser comUser){
+    public boolean loginSuccess(ComUser comUser){
 
         comUser.setPassword(MD5.get32(comUser.getPassword()));
         comUser.setStatus(0);
@@ -48,9 +56,9 @@ public class UserService{
             user.setLoginName(userTmp.getLoginName());
             user.setName(userTmp.getName());
             user.setStatus(userTmp.getStatus());
-            return userTmp.getId();
+            return true;
         }else{
-            return null;
+            return false;
         }
     }
 

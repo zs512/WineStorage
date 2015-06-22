@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: ruan
@@ -291,7 +292,7 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-            <span class="username">Jenifer Smith</span>
+            <span class="username"><%=request.getSession().getAttribute("userName")%></span>
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu extended logout">

@@ -56,9 +56,10 @@ public class LoginAction extends ActionSupport implements RequestAware, SessionA
         user.setLoginName(name);
         user.setPassword(password);
         UserService userService= new UserService();
-        user.setId(userService.loginSuccess(user));
-        if(user.getId() != null){
+        if(userService.loginSuccess(user)){
+            user = userService.getUser();
             session.put("userId", user.getId());
+            session.put("userName", user.getName());
             return "loginSuccess";
         }else{
             return "loginFail";
