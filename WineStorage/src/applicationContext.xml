@@ -34,7 +34,10 @@
 				<value>com.domain.ComInStorage</value>
 				<value>com.domain.ComOutStorage</value>
 				<value>com.domain.ComItem</value>
-				<value>com.domain.ComUser</value></list>
+				<value>com.domain.ComUser</value>
+				<value>com.domain.ComApprovalInStorage</value>
+				<value>com.domain.ComApprovalOutStorage</value>
+			</list>
 		</property></bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
@@ -67,6 +70,16 @@
 		</property>
 	</bean>
 	<bean id="ComUserDAO" class="com.dao.ComUserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ComApprovalInStorageDAO" class="com.dao.ComApprovalInStorageDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ComApprovalOutStorageDAO" class="com.dao.ComApprovalOutStorageDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

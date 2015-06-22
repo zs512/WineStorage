@@ -107,6 +107,10 @@ public class GetAllInStorageAction extends ActionSupport implements RequestAware
             inStorageJson += "{\"id\":\"" + inStorage.getId() + "\"," +
                         "\"itemId\":\"" + inStorage.getComItem().getId() + "\"," +
                         "\"itemName\":\"" + comItem.getName() + "\"," +
+                        "\"itemBarcode\":\"" + comItem.getBarcode() + "\"," +
+                        "\"itemVariety\":\"" + comItem.getVariety() + "\"," +
+                        "\"itemStorage\":\"" + comItem.getStorage() + "\"," +
+                        "\"itemStandard\":\"" + comItem.getStandard() + "\"," +
                         "\"count\":\"" + inStorage.getCount() + "\"," +
                         "\"place\":\"" + inStorage.getSupplyPlace() + "\"," +
                         "\"agent\":\"" + inStorage.getAgent() + "\"," +
@@ -115,13 +119,8 @@ public class GetAllInStorageAction extends ActionSupport implements RequestAware
                         "\"status\":\"" + inStorage.getStatus() + "\"," +
                         "\"approval\":\"";
             if(inStorage.getComUserByApproval() != null && inStorage.getComUserByApproval().getId() != null){
-                String name = "";
-                if(inStorage.getComUserByApproval().getName() == null){
-                    ComUser user = userService.getUserById(inStorage.getComUserByApproval().getId());
-                    name = user.getName();
-                }else{
-                    name = inStorage.getComUserByApproval().getName();
-                }
+                ComUser user = userService.getUserById(inStorage.getComUserByApproval().getId());
+                String name = user.getName();
                 inStorageJson += name + "\"," +
                             "\"approvalTime\":\"" + df.format(inStorage.getApprovalDatetime()) + "\",";
             }else{

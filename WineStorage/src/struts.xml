@@ -36,6 +36,12 @@
         <action name="outStorageManage">
             <result>/outStorage.jsp</result>
         </action>
+        <action name="approvalInStorage">
+            <result>/approvalInStorage.jsp</result>
+        </action>
+        <action name="approvalOutStorage">
+            <result>/approvalOutStorage.jsp</result>
+        </action>
     </package>
 
 
@@ -115,6 +121,26 @@
         </action>
         <action name="editOutStorage" class="com.action.OutStorageAction.EditOutStorageAction">
             <result name="success">/outStorage.jsp</result>
+        </action>
+    </package>
+
+    <package name="PendInStorageManage" extends="json-default">
+        <default-interceptor-ref name="defaultStack"/>
+        <action name="failInStorage" class="com.action.PendAction.FailInStorageAction">
+            <result name="success">/approvalInStorage.jsp</result>
+        </action>
+        <action name="passInStorage" class="com.action.PendAction.PassInStorageAction">
+            <result name="success">/approvalInStorage.jsp</result>
+        </action>
+    </package>
+
+    <package name="PendOutStorageManage" extends="json-default">
+        <default-interceptor-ref name="defaultStack"/>
+        <action name="failOutStorage" class="com.action.PendAction.FailOutStorageAction">
+            <result name="success">/approvalOutStorage.jsp</result>
+        </action>
+        <action name="passOutStorage" class="com.action.PendAction.PassOutStorageAction">
+            <result name="success">/approvalOutStorage.jsp</result>
         </action>
     </package>
 </struts>
