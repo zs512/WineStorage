@@ -8,7 +8,7 @@
     <constant name="struts.action.extension" value="action"/>
 
     <!-- -->
-    <constant name="struts.serve.static.browserCache" value="false"/>
+    <constant name="struts.serve.static.browserCache" value="true"/>
 
     <!-- -->
     <constant name="struts.configuration.xml.reload" value="true"/>
