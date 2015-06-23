@@ -60,9 +60,7 @@
       </label>
       -->
       <button class="btn btn-primary btn-lg btn-block" type="submit">登陆</button>
-      <!--
-      <button class="btn btn-info btn-lg btn-block" type="submit">Sign up</button>
-      -->
+      <button class="btn btn-info btn-lg btn-block" type="submit">注册</button>
     </div>
   </form>
 
