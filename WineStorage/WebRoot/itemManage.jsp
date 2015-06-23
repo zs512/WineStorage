@@ -298,30 +298,12 @@
           <ul class="dropdown-menu extended logout">
             <div class="log-arrow-up"></div>
             <li class="eborder-top">
-              <a href="#"><i class="icon_profile"></i> My Profile</a>
+              <a data-toggle="modal" data-target="#changePassword"><i class="icon_profile"></i> 修改密码</a>
             </li>
-            <!--
+
             <li>
-              <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
+              <a href="<%=request.getContextPath()%>/logout.action"><i class="icon_key_alt"></i> 退出</a>
             </li>
-            <li>
-              <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-            </li>
-            <li>
-              <a href="#"><i class="icon_chat_alt"></i> Chats</a>
-            </li>
-            -->
-            <li>
-              <a href="login.jsp"><i class="icon_key_alt"></i> Log Out</a>
-            </li>
-            <!--
-            <li>
-              <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
-            </li>
-            <li>
-              <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
-            </li>
-            -->
           </ul>
         </li>
         <!-- user login dropdown end -->
@@ -587,6 +569,54 @@
         </div>
       </div>
 
+      <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title text-center" id="changePasswordTitle">修改密码</h4>
+            </div>
+
+            <form class="form-validate form-horizontal" id="changePassword_form" method="post" action="<%=request.getContextPath()%>/changePassword.action">
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="name" class="control-label col-lg-3">登录名<span class="required">*</span></label>
+                  <div class="col-lg-8">
+                    <input class="form-control" id="name" name="name" type="text"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="oldPassword" class="control-label col-lg-3">旧密码<span class="required">*</span></label>
+                  <div class="col-lg-8">
+                    <input class="form-control password-field" id="oldPassword" name="oldPassword" type="password"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="newPassword" class="control-label col-lg-3">新密码<span class="required">*</span></label>
+                  <div class="col-lg-8">
+                    <input class="form-control password-field" id="newPassword" name="newPassword" type="password"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="newPasswordAgain" class="control-label col-lg-3">再输一次新密码<span class="required">*</span></label>
+                  <div class="col-lg-8">
+                    <input class="form-control password-field" id="newPasswordAgain" name="newPasswordAgain" type="password"/>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary">确定修改</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
     </section>
     <!--main content end-->
   </section>

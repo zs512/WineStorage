@@ -62,6 +62,22 @@ public class UserService{
         }
     }
 
+    public boolean changePassword(ComUser comUser, String newPassword){
+        comUser.setPassword(MD5.get32(comUser.getPassword()));
+        comUser.setStatus(0);
+        List<ComUser> comUserList = comUserDAO.findByExample(comUser);
+
+        if(comUserList != null && comUserList.size() == 1){
+            ComUser userTmp = comUserList.get(0);
+            newPassword = MD5.get32(newPassword);
+            userTmp.setPassword(newPassword);
+            comUserDAO.attachDirty(userTmp);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public boolean signUpSuccess(ComUser comUser){
         if(checkSignUpIsOk(comUser)) {
             comUser.setPassword(MD5.get32(comUser.getPassword()));

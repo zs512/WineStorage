@@ -27,119 +27,234 @@
     </package>
 
     <package name="def" extends="struts-default">
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor">
+            </interceptor>
+        </interceptors>
+        <global-results>
+            <result name="login" type="redirect">/login.jsp</result>
+        </global-results>
+
         <action name="itemManage">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result>/itemManage.jsp</result>
         </action>
         <action name="inStorageManage">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result>/inStorage.jsp</result>
         </action>
         <action name="outStorageManage">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result>/outStorage.jsp</result>
         </action>
         <action name="approvalInStorage">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result>/approvalInStorage.jsp</result>
         </action>
         <action name="approvalOutStorage">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result>/approvalOutStorage.jsp</result>
         </action>
+
     </package>
 
 
-    <package name="login" extends="struts-default">
-        <default-interceptor-ref name="defaultStack"/>
+    <package name="userManage" extends="struts-default">
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor">
+            </interceptor>
+        </interceptors>
+
         <action name="login" class="com.action.UserAction.LoginAction">
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="loginSuccess">/index.jsp</result>
             <result name="loginFail">/login.jsp</result>
+        </action>
+
+
+        <action name="logout" class="com.action.UserAction.LogoutAction">
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/login.jsp</result>
+        </action>
+        <action name="changePassword" class="com.action.UserAction.ChangePasswordAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/login.jsp</result>
         </action>
     </package>
 
     <package name="ItemManage" extends="json-default">
-        <default-interceptor-ref name="defaultStack"/>
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor">
+            </interceptor>
+        </interceptors>
         <action name="addItem" class="com.action.ItemAction.AddItemAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/itemManage.jsp</result>
             <result name="fail">/itemManage.jsp</result>
         </action>
         <action name="getAllItem" class="com.action.ItemAction.GetAllItemAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success" type="json">
                 <param name="root">result</param>
             </result>
         </action>
         <action name="delSelectItem" class="com.action.ItemAction.DelSelectedItemAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success" type="json">
                 <param name="root">result</param>
             </result>
         </action>
         <action name="delItem" class="com.action.ItemAction.DelItemAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/itemManage.jsp</result>
         </action>
         <action name="editItem" class="com.action.ItemAction.EditItemAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/itemManage.jsp</result>
         </action>
         <action name="delItems" class="com.action.ItemAction.DelItemsAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/itemManage.jsp</result>
         </action>
     </package>
 
     <package name="InStorageManage" extends="json-default">
-        <default-interceptor-ref name="defaultStack"/>
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor">
+            </interceptor>
+        </interceptors>
         <action name="addInStorage" class="com.action.InStorageAction.AddInStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/inStorage.jsp</result>
             <result name="error">/inStorage.jsp</result>
         </action>
         <action name="getAllInStorage" class="com.action.InStorageAction.GetAllInStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result type="json">
                 <param name="root">resultJson</param>
             </result>
         </action>
         <action name="delInStorage" class="com.action.InStorageAction.DelInStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/inStorage.jsp</result>
         </action>
         <action name="delInStorages" class="com.action.InStorageAction.DelInStoragesAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/inStorage.jsp</result>
         </action>
         <action name="editInStorage" class="com.action.InStorageAction.EditInStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/inStorage.jsp</result>
         </action>
     </package>
 
     <package name="OutStorageManage" extends="json-default">
-        <default-interceptor-ref name="defaultStack"/>
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor">
+            </interceptor>
+        </interceptors>
         <action name="addOutStorage" class="com.action.OutStorageAction.AddOutStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/outStorage.jsp</result>
             <result name="error">/outStorage.jsp</result>
         </action>
         <action name="getAllOutStorage" class="com.action.OutStorageAction.GetAllOutStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result type="json">
                 <param name="root">resultJson</param>
             </result>
         </action>
         <action name="delOutStorage" class="com.action.OutStorageAction.DelOutStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/outStorage.jsp</result>
         </action>
         <action name="delOutStorages" class="com.action.OutStorageAction.DelOutStoragesAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/outStorage.jsp</result>
         </action>
         <action name="editOutStorage" class="com.action.OutStorageAction.EditOutStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/outStorage.jsp</result>
         </action>
     </package>
 
     <package name="PendInStorageManage" extends="json-default">
-        <default-interceptor-ref name="defaultStack"/>
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor">
+            </interceptor>
+            <interceptor name="pendInterceptor" class="com.interceptor.PendInterceptor">
+                <param name="errorToGo">approvalInStorage</param>
+            </interceptor>
+        </interceptors>
         <action name="failInStorage" class="com.action.PendAction.FailInStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="pendInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="approvalInStorage">/approvalInStorage.jsp</result>
             <result name="success">/approvalInStorage.jsp</result>
         </action>
         <action name="passInStorage" class="com.action.PendAction.PassInStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="pendInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="approvalInStorage">/approvalInStorage.jsp</result>
+            <result name="success">/approvalInStorage.jsp</result>
+        </action>
+        <action name="approvalInStorage">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/approvalInStorage.jsp</result>
         </action>
     </package>
 
     <package name="PendOutStorageManage" extends="json-default">
-        <default-interceptor-ref name="defaultStack"/>
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor">
+            </interceptor>
+            <interceptor name="pendInterceptor" class="com.interceptor.PendInterceptor">
+                <param name="errorToGo">approvalOutStorage</param>
+            </interceptor>
+        </interceptors>
         <action name="failOutStorage" class="com.action.PendAction.FailOutStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="pendInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="approvalOutStorage">/approvalOutStorage.jsp</result>
             <result name="success">/approvalOutStorage.jsp</result>
         </action>
         <action name="passOutStorage" class="com.action.PendAction.PassOutStorageAction">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="pendInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="approvalOutStorage">/approvalOutStorage.jsp</result>
+            <result name="success">/approvalOutStorage.jsp</result>
+        </action>
+        <action name="approvalOutStorage">
+            <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="approvalOutStorage">/approvalOutStorage.jsp</result>
             <result name="success">/approvalOutStorage.jsp</result>
         </action>
     </package>
