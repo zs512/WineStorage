@@ -42,16 +42,24 @@
 
 <div class="container">
 
-  <form class="login-form" action="<%=request.getContextPath()%>/login.action" method="post">
+  <form class="login-form" action="<%=request.getContextPath()%>/signUp.action" method="post">
     <div class="login-wrap">
       <p class="login-img"><i class="icon_lock_alt"></i></p>
-      <div class="input-group">
+      登录名<div class="input-group">
         <span class="input-group-addon"><i class="icon_profile"></i></span>
-        <input type="text" class="form-control" placeholder="username" autofocus name="name">
+        <input type="text" class="form-control" placeholder="loginName" autofocus name="loginName">
       </div>
-      <div class="input-group">
+      姓名<div class="input-group">
+        <span class="input-group-addon"><i class="icon_profile"></i></span>
+        <input type="text" class="form-control" placeholder="name" autofocus name="name">
+      </div>
+      登录密码<div class="input-group">
         <span class="input-group-addon"><i class="icon_key_alt"></i></span>
         <input type="password" class="form-control" placeholder="password" name="password">
+      </div>
+      确认密码<div class="input-group">
+        <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+        <input type="password" class="form-control" placeholder="passwordAgain" name="passwordAgain">
       </div>
       <!--
       <label class="checkbox">
@@ -59,8 +67,7 @@
           <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
       </label>
       -->
-      <button class="btn btn-primary btn-lg btn-block" type="submit">登陆</button>
-      <!--<a class="btn btn-primary btn-lg btn-block" href="<%=request.getContextPath()%>/signup.action">注册</a>-->
+      <button class="btn btn-primary btn-lg btn-block" type="submit">注册</button>
 
     </div>
   </form>

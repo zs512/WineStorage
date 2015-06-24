@@ -35,6 +35,11 @@
             <result name="login" type="redirect">/login.jsp</result>
         </global-results>
 
+        <action name="signup">
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result>/signUp.jsp</result>
+        </action>
+
         <action name="itemManage">
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
@@ -85,6 +90,12 @@
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">/login.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
+        <action name="signUp" class="com.action.UserAction.SignupAction">
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/login.jsp</result>
+            <result name="error">/signUp.jsp</result>
         </action>
     </package>
 
@@ -214,6 +225,7 @@
             <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="approvalInStorage">/approvalInStorage.jsp</result>
             <result name="success">/approvalInStorage.jsp</result>
+            <result name="error">/approvalInStorage.jsp</result>
         </action>
         <action name="passInStorage" class="com.action.PendAction.PassInStorageAction">
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
@@ -221,6 +233,7 @@
             <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="approvalInStorage">/approvalInStorage.jsp</result>
             <result name="success">/approvalInStorage.jsp</result>
+            <result name="error">/approvalInStorage.jsp</result>
         </action>
         <action name="approvalInStorage">
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
@@ -243,6 +256,7 @@
             <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="approvalOutStorage">/approvalOutStorage.jsp</result>
             <result name="success">/approvalOutStorage.jsp</result>
+            <result name="error">/approvalOutStorage.jsp</result>
         </action>
         <action name="passOutStorage" class="com.action.PendAction.PassOutStorageAction">
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
@@ -250,6 +264,7 @@
             <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="approvalOutStorage">/approvalOutStorage.jsp</result>
             <result name="success">/approvalOutStorage.jsp</result>
+            <result name="error">/approvalOutStorage.jsp</result>
         </action>
         <action name="approvalOutStorage">
             <interceptor-ref name="loginInterceptor"></interceptor-ref>
