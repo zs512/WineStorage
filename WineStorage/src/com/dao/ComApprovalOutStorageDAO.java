@@ -25,7 +25,7 @@ import com.domain.ComApprovalOutStorage;
  * transactions. Each of these methods provides additional information for how
  * to configure it for the desired type of transaction control.
  * 
- * @see com.domain.ComApprovalOutStorage
+ * @see ComApprovalOutStorage
  * @author MyEclipse Persistence Tools
  */
 @Transactional

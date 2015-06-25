@@ -52,6 +52,11 @@ public class LoginAction extends ActionSupport implements RequestAware, SessionA
 
     @Override
     public String execute() throws Exception {
+        String idTmp = (String)session.get("userId");
+        if(idTmp != null) {
+            return SUCCESS;
+        }
+        if(name == null || password == null) return ERROR;
         ComUser user = new ComUser();
         user.setLoginName(name);
         user.setPassword(password);
@@ -61,9 +66,9 @@ public class LoginAction extends ActionSupport implements RequestAware, SessionA
             session.put("userId", user.getId());
             session.put("userName", user.getName());
             session.put("userLoginName", user.getLoginName());
-            return "loginSuccess";
+            return SUCCESS;
         }else{
-            return "loginFail";
+            return ERROR;
         }
     }
 

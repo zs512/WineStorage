@@ -59,7 +59,7 @@ public class PendInterceptor implements Interceptor {
         Iterator<ComUserRight> iterator = comUserRightList.iterator();
         while(iterator.hasNext()){
             ComUserRight userRight = iterator.next();
-            ComRight comRight = comRightDAO.findById(userRight.getRightId());
+            ComRight comRight = comRightDAO.findById(userRight.getComRight().getId());
             System.out.println(comRight.getRightName());
             if("shenpi".equals(comRight.getRightName())){
                 return invocation.invoke();

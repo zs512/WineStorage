@@ -32,8 +32,6 @@ public class ComUserRightDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(ComUserRightDAO.class);
 	// property constants
-	public static final String USER_ID = "userId";
-	public static final String RIGHT_ID = "rightId";
 	public static final String STATUS = "status";
 
 	private SessionFactory sessionFactory;
@@ -112,14 +110,6 @@ public class ComUserRightDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List<ComUserRight> findByUserId(Object userId) {
-		return findByProperty(USER_ID, userId);
-	}
-
-	public List<ComUserRight> findByRightId(Object rightId) {
-		return findByProperty(RIGHT_ID, rightId);
 	}
 
 	public List<ComUserRight> findByStatus(Object status) {

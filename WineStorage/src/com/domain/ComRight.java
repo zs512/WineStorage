@@ -87,7 +87,7 @@ public class ComRight implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comUser")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comRight")
 	public Set<ComUserRight> getComUserRights() {
 		return this.comUserRights;
 	}

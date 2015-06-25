@@ -10,10 +10,10 @@
 		  class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
 		<property name="url"
-			value="jdbc:sqlserver://172.100.100.246:1433;databaseName=WineStorage">
+			value="jdbc:sqlserver://172.100.100.233:1433;databaseName=WineStorage">
 		</property>
 		<property name="username" value="sa"/>
-		<property name="password" value="admin_312"/>
+		<property name="password" value="admin312"/>
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

@@ -22,8 +22,6 @@ public class ComUserRight implements java.io.Serializable {
 	private String id;
 	private ComUser comUser;
 	private ComRight comRight;
-	private String userId;
-	private String rightId;
 	private Integer status;
 
 	// Constructors
@@ -33,21 +31,15 @@ public class ComUserRight implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public ComUserRight(ComUser comUser, ComRight comRight, String userId,
-			String rightId) {
+	public ComUserRight(ComUser comUser, ComRight comRight) {
 		this.comUser = comUser;
 		this.comRight = comRight;
-		this.userId = userId;
-		this.rightId = rightId;
 	}
 
 	/** full constructor */
-	public ComUserRight(ComUser comUser, ComRight comRight, String userId,
-			String rightId, Integer status) {
+	public ComUserRight(ComUser comUser, ComRight comRight, Integer status) {
 		this.comUser = comUser;
 		this.comRight = comRight;
-		this.userId = userId;
-		this.rightId = rightId;
 		this.status = status;
 	}
 
@@ -65,7 +57,7 @@ public class ComUserRight implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", unique = true, nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	public ComUser getComUser() {
 		return this.comUser;
 	}
@@ -75,31 +67,13 @@ public class ComUserRight implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", unique = true, nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "right_id", nullable = false)
 	public ComRight getComRight() {
 		return this.comRight;
 	}
 
 	public void setComRight(ComRight comRight) {
 		this.comRight = comRight;
-	}
-
-	@Column(name = "user_id", nullable = false, length = 32)
-	public String getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	@Column(name = "right_id", nullable = false, length = 32)
-	public String getRightId() {
-		return this.rightId;
-	}
-
-	public void setRightId(String rightId) {
-		this.rightId = rightId;
 	}
 
 	@Column(name = "status")

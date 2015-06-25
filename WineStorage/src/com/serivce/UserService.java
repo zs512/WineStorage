@@ -49,8 +49,8 @@ public class UserService{
         comUser.setPassword(MD5.get32(comUser.getPassword()));
         comUser.setStatus(0);
         List<ComUser> comUserList = comUserDAO.findByExample(comUser);
-
         if(comUserList != null && comUserList.size() == 1){
+            System.out.println(comUserList.size());
             ComUser userTmp = comUserList.get(0);
             user.setId(userTmp.getId());
             user.setLoginName(userTmp.getLoginName());
