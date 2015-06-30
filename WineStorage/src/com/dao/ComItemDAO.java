@@ -3,6 +3,7 @@ package com.dao;
 import java.util.List;
 import java.util.Set;
 
+import com.common.Page;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -191,5 +192,20 @@ public class ComItemDAO {
 
 	public static ComItemDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (ComItemDAO) ctx.getBean("ComItemDAO");
+	}
+
+	public List<ComItem> findByPage(final int status, final Page page){
+		log.debug("finding ComItem by Page");
+		try{
+			String queryString = "from ComItem as model where model." + STATUS + "= ?";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			queryObject.setParameter(0, status);
+			queryObject.setMaxResults(page.getEveryPage());
+			queryObject.setFirstResult(page.getBeginIndex());
+			return queryObject.list();
+		}catch(RuntimeException re){
+			log.error("finding ComItem by Page failed", re);
+			throw re;
+		}
 	}
 }
