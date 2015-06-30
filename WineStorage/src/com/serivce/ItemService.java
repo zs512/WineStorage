@@ -1,5 +1,6 @@
 package com.serivce;
 
+import com.common.Page;
 import com.dao.ComItemDAO;
 import com.domain.ComItem;
 import org.springframework.context.ApplicationContext;
@@ -115,6 +116,10 @@ public class ItemService extends PublicService{
 
     public List<ComItem> getAllItem(){
         return comItemDAO.findByStatus(0);
+    }
+
+    public List<ComItem> getItemByPage(Page page){
+        return comItemDAO.findByPage(0, page);
     }
 
     public boolean delItem(String itemId){
